@@ -1,0 +1,43 @@
+<wxs module="bind">
+  var isActive = function(params){
+    var isTrue = true
+    if(params.phone.length < 11){
+      isTrue = false
+    }
+    else if(!params.verifyCode.length < 4){
+       isTrue = false
+    }else if(!params.password || !params.rePassword){
+       isTrue = false
+    }
+    return isTrue ? 'active' : 'aaa'
+ 
+  }
+
+  module.exports.isActive = isActive;
+</wxs>
+<view class="bind-phone">
+  <view class="title">绑定手机</view>
+  <view class="tip">您还未绑定手机号码</view>
+  <view class="input-box flex-center">
+    <text class="input-box-title">手机号</text>
+    <input type="text" placeholder="请输入您的手机号" value="{{form.phone}}" bindinput="inputText" maxlength="11" data-type="phone" placeholder-class="input-placeholder" />
+  </view>
+  <view class="input-box flex-center">
+    <text class="input-box-title">验证码</text>
+    <input type="text" placeholder="请输入验证码" value="{{form.verifyCode}}" bindinput="inputText" maxlength="6" data-type="formverifyCode" placeholder-class="input-placeholder" />
+    <view class="send-code {{(sendCodeText == '发送验证码' || sendCodeText == '重新发送') && 'text-active'}}" bindtap="sendSms">
+      {{sendCodeText}}
+    </view>
+  </view>
+  <block wx:if="{{!fromType}}">
+    <view class="input-box flex-center">
+      <text class="input-box-title">密码</text>
+      <input type="password" placeholder="请输入密码" value="{{form.password}}" bindinput="inputText" data-type="password" placeholder-class="input-placeholder" />
+    </view>
+    <view class="input-box flex-center">
+      <text class="input-box-title">重复密码</text>
+      <input type="password" placeholder="请再次输入密码" value="{{form.rePassword}}" bindinput="inputText" data-type="rePassword" placeholder-class="input-placeholder" />
+    </view>
+  </block>
+  <button class="submit {{bind.isActive(form)}}" bindtap="bindPhone">绑定</button>
+</view>

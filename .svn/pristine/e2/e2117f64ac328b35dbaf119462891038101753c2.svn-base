@@ -1,0 +1,11 @@
+{
+  "navigationBarBackgroundColor": "#FF4444",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "产品分类",
+  "enablePullDownRefresh": true,
+  "usingComponents":{
+    "btn-to-top": "../../../components/btnToTop/btnToTop",
+    "Coupon":"../../../components/coupon/coupon",
+    "tabBar": "../../../components/tabBar/tabBar"
+  }
+}

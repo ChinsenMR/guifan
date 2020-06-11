@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "引流商城",
+  "navigationBarBackgroundColor": "#ff4444",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "share": "../components/productShare/productShare",
+    "tabBar": "/components/tabBar/tabBar"
+  }
+}

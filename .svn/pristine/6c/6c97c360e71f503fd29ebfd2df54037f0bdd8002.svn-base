@@ -1,0 +1,14 @@
+{
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "消息",
+  "usingComponents":{
+    "Modal":"./modal/modal",
+    "van-field": "../../miniprogram_npm/vant-weapp/field/index",
+    "van-icon": "../../miniprogram_npm/vant-weapp/icon/index",
+    "van-button": "../../miniprogram_npm/vant-weapp/button/index",
+    "van-switch": "../../miniprogram_npm/vant-weapp/switch/index",
+    "van-tab": "../../miniprogram_npm/vant-weapp/tab/index",
+    "van-tabs": "../../miniprogram_npm/vant-weapp/tabs/index"
+  }
+}

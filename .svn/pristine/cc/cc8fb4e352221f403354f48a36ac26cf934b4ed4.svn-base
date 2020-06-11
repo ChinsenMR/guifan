@@ -1,0 +1,11 @@
+{
+  "navigationBarBackgroundColor":"#fff",
+  "navigationBarTextStyle":"black",
+  "navigationBarTitleText":"购物车",
+  "usingComponents":{
+    "Custom-tab":"./tab/tab",
+    "Coupon":"../../components/coupon/coupon",
+    "btn-to-top": "../../../components/btnToTop/btnToTop",
+    "tabBar": "../../../components/tabBar/tabBar"
+  }
+}

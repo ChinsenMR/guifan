@@ -1,0 +1,99 @@
+<view class='layout'>
+  <!-- <image src='{{imgUrl+"bg_o1.png"}}' mode='widthFix'></image> -->
+  <!-- <image src='../../images/bg_02@2x.png' mode='widthFix' class="layout_img"></image> -->
+  <image src='{{imgUrl+"upload_02@2x.png" || img1}}' mode='widthFix' class="layout_img"></image>
+  <view class='rule df ais jct' bindtap="handleState">规则</view>
+
+  <!-- 主要内容区 -->
+  <view class="member_wrap">
+    <view class="bgc_wrap">
+
+      <view class="box1" wx:if="{{name1=='钻石会员'}}">
+      <!-- <view class="box1" wx:if="{{true}}"> -->
+        <view class="diamond_wrap">
+          <!-- <image class="diamond_img" src="{{imgurl+'bg_title@2x.png'}}" mode="aspectFill"></image> -->
+          <image class="diamond_img" src="{{imgUrl+'bg_title@2x.png' || img2}}" mode="aspectFill"></image>
+          <text class="diamond_text">升级钻石会员专属礼包</text>
+        </view>
+        <view class="diamond_rights">
+          <view class="diamond_rights_title">#钻石会员权益</view>
+          <view class="diamond_rights_text">升级条件：购买以下任意3件商品，或者推荐5个金卡会员等级会员</view>
+          <view class="diamond_border"></view>
+        </view>
+  
+        <view class="shop_main">
+            <!-- 内容盒子 -->
+           <scroll-view class="Freeshippingidetail-box" scroll-x>
+            <block wx:for="{{list}}"  wx:key='{{item}}' >
+              <view class="Freeshippingdetail" >
+                <view class='Freeshippingimg' bindtap="handleDetails" data-productid="{{item.ProductId}}">
+                  <image  src='{{item.ImageUrl1}}' ></image>
+                </view>
+                <view class="shop_info_wrap">
+                   <text class="shop_info_title">{{item.ProductName}}</text>
+                   <text class="shop_info_price">￥ {{item.SalePrice}}</text>
+                </view>
+                <view class="shop_add" bindtap="handleAdds" data-productid="{{item.ProductId}}">+</view>
+              </view>
+            </block>
+          </scroll-view>
+          <view class="onShow" wx:if="{{name1=='钻石会员' && list.length==0}}">
+            <image src='{{imgUrl+"icon_gouwuche-t@2x.png"}}'></image>
+            <view class='emptyCart-item'>暂无产品!!!</view>
+          </view>
+        </view>
+        
+      </view>
+      
+
+      <view class="box2" wx:if="{{name2=='金卡会员'}}">
+      <!-- <view class="box2" wx:if="{{index==1 && GetReferralGrades.length != 0}}"> -->
+        <view class="diamond_wrap">
+            <image class="diamond_img" src="{{imgUrl+'bg_title@2x.png' || img2}}" mode="widthFix"></image>
+            <text class="diamond_text">升级金卡会员专属礼包</text>
+        </view>
+      
+        <view class="diamond_rights">
+          <view class="diamond_rights_title">#金卡会员权益</view>
+          <view class="diamond_rights_text">升级条件：购买以下任意商品，或者累计消费满300.00元</view>
+          <view class="diamond_border"></view>
+        </view>
+      
+        <view class="shop_main">
+          <scroll-view class="Freeshippingidetail-box" scroll-x>
+            <block wx:for="{{lists}}"  wx:key='{{item}}' >
+              <view class="Freeshippingdetail" >
+                <view class='Freeshippingimg' bindtap="handleDetails" data-productid="{{item.ProductId}}">
+                  <image  src='{{item.ImageUrl1}}' mode='aspectFill' ></image>
+                </view>
+                <view class="shop_info_wrap">
+                   <text class="shop_info_title">{{item.ProductName}}</text>
+                   <text class="shop_info_price">￥ {{item.SalePrice}}</text>
+                </view>
+                <view class="shop_add" bindtap="handleAdds" data-productid="{{item.ProductId}}" bind:open='openSpecs'>+</view>
+              </view>
+            </block>
+          </scroll-view>
+          <view class="onShow" wx:if="{{name2=='金卡会员' && lists.length==0}}">
+            <image src='{{imgUrl+"icon_gouwuche-t@2x.png"}}'></image>
+            <view class='emptyCart-item'>暂无产品!!!</view>
+          </view>
+        </view> 
+      </view>
+
+        
+    <view class="member_btn " wx:if="{{true}}" bindtap="handleMember">
+        <!-- <image class="btn_img" src="../../images/bg_01@2x(1).png"></image> -->
+        <image class="btn_img" src="{{imgUrl+'go_btn@2x .png' || img3}}"></image>
+        <view class="memner_text">
+          <text class="btn_text1">轻松赚钱，轻松创业</text>
+          <text class="btn_text2">升级代理享受特权</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+  <!-- 产品规格  /  发货地址  弹出组件 -->
+  <!-- <GoodsSpecs wx:if="{{goodsInfo}}" skuItem='{{skuItem}}' skus='{{skus}}' prDid='{{prDid}}' goodsInfo='{{goodsInfo}}'
+    freight='{{freight}}' id='goodsSpecsCom' bind:succ="succ" paramData="{{paramData}}" /> -->

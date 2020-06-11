@@ -1,0 +1,111 @@
+const app = getApp();
+import {
+  getKD100,
+  returnSendGoods,
+  getOrderReturn,
+} from "../../../utils/requestApi";
+
+Page({
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    form: {
+      order_sn: "",
+      express_sn: "",
+      goods_name: "",
+      address: "",
+      express_company: "",
+      express_company_key: "",
+    },
+    info: {},
+    id: "",
+    orderId: "",
+    expressCompanyList: [],
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.setData(options);
+    this.getOrderReturn();
+    getKD100().then((res) => {
+      const { KdList = [] } = res.data.Result;
+      this.setData({
+        expressCompanyList: KdList,
+      });
+    });
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {},
+  getOrderReturn() {
+    getOrderReturn({
+      returnId: this.data.id,
+      orderId: this.data.orderId,
+    }).then((res) => {
+      if (res.statusCode == 200) {
+        this.setData({
+          info: res.data,
+        });
+      }
+    });
+  },
+  inputContext(e) {
+    const { value } = e.detail;
+    this.setData({
+      "form.express_sn": value,
+    });
+  },
+  pickerItem(e) {
+    const { value } = e.detail;
+    this.setData({
+      "form.express_company_key": this.data.expressCompanyList[value].key,
+      "form.express_company": this.data.expressCompanyList[value].value,
+    });
+  },
+  submit(e) {
+    const { orderId, id, info, form } = this.data;
+    if (!form.express_company) {
+      wx.showToast({
+        title: "请选择物流公司",
+        icon: "none",
+      });
+      return;
+    }
+    if (!form.express_sn) {
+      wx.showToast({
+        title: "请输入快递单号",
+        icon: "none",
+      });
+      return;
+    }
+
+    const params = {
+      ReturnId: id,
+      OrderId: orderId,
+      SkuId: info.LineItem[0].SkuId,
+      express: form.express_company,
+      shipOrderNumber: form.express_sn,
+      UserCellPhone: info.AdminCellPhone,
+    };
+    returnSendGoods(params).then((res) => {
+      wx.showToast({
+        title: res.data.Message,
+        icon: "none",
+      });
+      if (res.data.Status == "Success") {
+        setTimeout(() => {
+          wx.navigateBack();
+        }, 1500);
+      }
+    });
+  },
+  handleArrow() {
+    this.setData({
+      isShowExpress: !this.data.isShowExpress,
+    });
+  },
+});

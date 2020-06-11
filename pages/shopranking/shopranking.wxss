@@ -1,0 +1,58 @@
+.carlitop {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: rgba(255, 51, 51, 1);
+  height: 65rpx;
+  display: flex;
+  align-items: center;
+  background: rgba(253, 253, 253, 1);
+  margin-bottom: 20rpx;
+}
+
+.name {
+  margin-left: 107rpx;
+  position: relative;
+  width: 157rpx;
+}
+
+.name::after {
+  display: inline-block;
+  content: "";
+  width: 157rpx;
+  height: 1px;
+  bottom: 5rpx;
+  left: 0;
+  background: red;
+}
+
+.teambox {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid gainsboro;
+  align-items: center;
+  padding: 0 82rpx;
+  height: 150rpx;
+  background: white;
+}
+
+.temboxl {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+.temboxl .heard {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: red;
+  margin: 0 20rpx;
+}
+.one{
+  width: 38rpx;
+  height: 64rpx;
+}
+.noteamd{
+  margin-top: 40%;
+  text-align: center;
+}

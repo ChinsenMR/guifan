@@ -1,0 +1,23 @@
+<view class="product_list" wx:if="{{likeGetData.length > 0}}">
+  <view class="product_title">
+      猜你喜欢
+  </view>
+  <scroll-view scroll-x style="width: 100%; white-space: nowrap;" lower-threshold="50" bindscrolltolower="bindscrolltolower">
+    <navigator url="./goodsDetail?prDid={{item.ProductId}}" class="swiper-item" wx:for="{{likeGetData}}" wx:key="index" data-productId="{{item.ProductId}}">
+      <view class="product_image">
+        <image class="" src="{{item.ThumbnailUrl410}}" mode="widthFix"  />
+      </view>
+       <view class="product_name van-ellipsis">
+          {{item.ProductName}}
+       </view>
+      <view class="product_price">
+          ￥{{item.MarketPrice}}
+       </view> 
+     
+    </navigator>
+  </scroll-view>
+</view>
+<view else>
+  
+</view>
+  

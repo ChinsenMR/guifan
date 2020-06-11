@@ -1,0 +1,29 @@
+<view class="binding_pages">
+    <van-cell-group>
+        <van-field
+            value="{{ username }}"
+            clearable
+            label="你的手机"
+            placeholder="请输入你的手机号码"
+            bind:click-icon="onClickIcon"
+            left-icon="phone-o"
+        />
+
+    <van-field
+        value="{{ code }}"
+        center
+        clearable
+        label="短信验证码"
+        placeholder="请输入短信验证码"
+        border="{{ false }}"
+        use-button-slot
+        left-icon="comment-o"
+    >
+        <van-button slot="button" size="small" type="primary">发送验证码</van-button>
+    </van-field>
+</van-cell-group>
+
+<van-button type="danger" block class="verificationIphone">验证手机</van-button>
+<van-button type="primary" plain  block class="cance">取消</van-button>
+</view>
+  

@@ -1,0 +1,14 @@
+.binding_pages{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 94%;
+    margin: 0 auto;
+}
+.verificationIphone{
+    margin: 35rpx 10rpx 25rpx;
+    background: #ff3c5c;
+}
+.cance{
+    margin: 5rpx 10rpx 25rpx;
+}

@@ -1,0 +1,85 @@
+<import src="../../wxParse/wxParse.wxml" />
+<view class='layout'>
+  <form bindsubmit='submitForm'>
+    <view class='content-ul'>
+      <!-- wx:if="{{listFlag[0].isShow}}" -->
+      <view class='content-li df ais jct-between'>
+        <view>姓名</view>
+        <view class='df ais'>
+          <input type='text' placeholder='请填写您的真实姓名' name='Name' value='{{form.Name}}' placeholder-class='inputStyle'></input>
+        </view>
+      </view>
+      <!-- wx:if="{{listFlag[1].isShow&&isShowAgency}}" -->
+      <view class='content-li df ais jct-between'>
+        <view>微信号</view>
+        <view class='df ais'>
+          <input type='text' placeholder='请填写您的微信号' name="WeChat" value='{{form.WeChat}}' placeholder-class='inputStyle'></input>
+        </view>
+      </view>
+      <!-- wx:if="{{listFlag[2].isShow}}" -->
+      <view class='content-li df ais jct-between'>
+        <view>联系电话</view>
+        <view class='df ais'>
+          <input type='number' placeholder='请填写您的手机号' name="Phone" value='{{form.Phone}}' placeholder-class='inputStyle' maxlength="11"></input>
+        </view>
+      </view>
+      <!-- wx:if="{{listFlag[3].isShow&&isShowAgency}}" -->
+      <view class='content-li df ais jct-between YY'>
+        <view>身份证号码</view>
+        <view class='df ais'>
+          <input type='idcard' placeholder='请填写您的身份证号码' name="IdCardNo" value='{{form.IdCardNo}}' placeholder-class='inputStyle' maxlength="18"></input>
+        </view>
+      </view>
+      <picker class="flex" mode='region' bindchange='onPicker'>
+        <view class='content-li df ais jct-between'>
+          <view>经营地区</view>
+          <view class='df ais'>
+            <input type='text' value='{{form.Region}}' name='Region' placeholder='请您选择经营地区' placeholder-class='inputStyle' disabled='true'></input>
+            <image src='{{imgUrl+"arrowRight.png"}}' mode='widthFix'></image>
+          </view>
+        </view>
+      </picker>
+      <!-- wx:if="{{listFlag[4].isShow}}" -->
+      <view class='content-li df ais jct-between'>
+        <view>收货地址</view>
+        <view class='df ais'>
+          <input type='text' placeholder='请填写您的详细地址' name="Address" value='{{Address}}' placeholder-class='inputStyle'></input>
+        </view>
+      </view>
+      <view class='content-li df ais jct-between'>
+        <view>代理品牌</view>
+        <picker range="{{agentBrandList}}" range-key='BrandName' mode='selector' bindchange='selectItem' data-type="1">
+          <view class='df ais'>
+            <input type='text' value='{{agentBrandList[form.BrandIndex].BrandName || ""}}' name='AgentGrade' placeholder='请您选择对应品牌' placeholder-class='inputStyle' disabled='true'></input>
+            <image src='{{imgUrl+"arrowRight.png"}}' mode='widthFix'></image>
+          </view>
+        </picker>
+      </view>
+      <view class='content-li df ais jct-between' hidden>
+        <view>代理等级</view>
+        <picker range="{{agentLevelList}}" range-key='BrandLevelName' mode='selector' bindchange='selectItem' data-type="2">
+          <view class='df ais'>
+            <input type='text' value='{{agentLevelList[form.LevelIndex].BrandLevelName || ""}}' name='AgentGrade' placeholder='请您选择升级等级' placeholder-class='inputStyle' disabled='true'></input>
+            <image src='{{imgUrl+"arrowRight.png"}}' mode='widthFix'></image>
+          </view>
+        </picker>
+      </view>
+    </view>
+    <button class='btn df ais jct' form-type='submit'>提交申请</button>
+  </form>
+</view>
+<view class="win_wrap" catchtouchmove="ture" wx:if="{{isWin}}">
+  <view class="win_main">
+    <scroll-view class="container" scroll-y="{{true}}">
+      <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </scroll-view>
+    <view class="btn_wrap" catchtap="handleTY" data-status="1">
+      <view class="search_btn">
+        <view class="btn_img" wx:if="{{isShow}}"></view>
+      </view>
+      <view class="search_title">我已阅读该协议</view>
+    </view>
+  </view>
+  <view class="win_style" catchtap="handleAgree">同意</view>
+</view>
+<view class="zhezhao" catchtouchmove="ture" wx:if="{{isWin}}"></view>

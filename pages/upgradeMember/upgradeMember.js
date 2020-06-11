@@ -1,0 +1,157 @@
+import { getGoodsDetail,getProductsDataList } from "../../utils/requestApi";
+const app = getApp();
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    imgUrl: app.data.imgurl,
+    list:[],  // 会员索引为index0
+    lists:[], // 会员索引为index1
+    ProductIds:'', //商品id
+    GetReferralGrades:[],
+    name1:'',
+    name2:'',
+    img1:'http://m.qpic.cn/psb?/V14HZwCK4bti9q/e2rWWL4c7wJ*gmyEEAkOlVFeZCXhJ7idaN8gDTjbHQ0!/b/dL4AAAAAAAAA&bo=OARJBAAAAAADB1M!&rf=viewer_4',
+    img2:'http://hmqy.oss-cn-hangzhou.aliyuncs.com/hmeshopV3/20190708/bg_title@2x.png',
+    img3:'http://m.qpic.cn/psb?/V14HZwCK4bti9q/C69HKfy23DpotcMEhQ2ezK3nJR6eRF.CPuJRMUYHxQk!/b/dL8AAAAAAAAA&bo=ugVWAQAAAAADN*o!&rf=viewer_4',
+    goodsInfo: null,
+  },
+  pageSize: 10, //	每页数量
+  pageIndex:1,	//	当前第几页
+
+  onLoad(){
+    let user = wx.getStorageSync("userInfo");
+    if (user != ''){
+      this.getProductIds(); // 获取本地缓存 同时将还原商品id => getProductsData()
+    }
+    
+  },
+
+  // 根据本地缓存获取相对应会员等的上商品id
+  getProductIds(){
+    let userInfo = wx.getStorageSync("userInfo");
+    console.log(userInfo)
+    const {GetReferralGrades} = userInfo;
+    // console.log("升级信息", GetReferralGrades);
+    
+    // 循环出数组中的商品 ProductIds
+    GetReferralGrades.forEach((value, index)=>{
+      // console.log(value);
+      // this.getProductsData(value.ProductIds, index);
+      if (value.Name=="钻石会员"){
+        this.getProductsData(value.ProductIds, value.Name);
+      }else if(value.Name=="金卡会员"){
+        this.getProductsData(value.ProductIds, value.Name);
+      }
+    })
+  },
+
+  // 获取根据会员等级获取升级商品
+  getProductsData(ids,name){
+    console.log("商品id",ids)
+    let n = name;
+    let prDid = ids;
+    let that = this;
+    let data ={
+      pageSize:that.pageSize,
+      pageIndex:that.pageIndex,
+      ProductIds:prDid
+    }
+    getProductsDataList(data).then(res=>{
+      // console.log("商品数据",res);
+      let newData = res.data.Result.Data;
+      
+      if (n == "钻石会员"){
+        // console.log(n);
+        that.setData({
+          list:newData,
+          name1:n
+        })
+      } else if (n == "金卡会员"){
+        that.setData({
+          lists:newData,
+          name2:n
+        })
+      }
+    })
+  },
+
+  //获取详情数据
+  getDetailData(id){
+    let prDid = id
+    let data ={
+      action: 'getProductDetail',
+      ProductID: prDid
+    }
+    getGoodsDetail(data).then(res=>{
+      console.log("详情数据",res);
+      if(res.statusCode == 200){
+        wx.hideLoading();
+        let { Result } = res.data;
+        this.setData({
+          bannerArr: Result.ImgList,
+          animationImg: Result.ImgList[0],
+          description: Result.Description,
+          skuItem: Result.SkuItem,
+          skus: Result.Skus,
+          coupons: Result.Coupons,
+          promotionStr: Result.PromotionStr,
+          freight: Result.Freight,
+          goodsInfo: Result
+        })
+      }
+    })
+  },
+
+
+
+  // 跳转详情
+  handleDetails(e){
+    wx.navigateTo({
+      url: `/pages/goodsDetail/goodsDetail?prDid=${e.currentTarget.dataset.productid}`,
+    })
+    wx.setStorageSync("buyType", "fightgroup")
+  },
+  // 添加购物车
+  handleAdds(e){
+
+
+    console.log("触发了",e)
+    let id =e.currentTarget.dataset.productid;
+    // console.log("商品id",id)
+    this.getDetailData(id);
+    wx.setStorageSync('buyType', e.currentTarget.dataset.type)
+    this.triggerEvent('open')
+  },
+
+
+  // 跳转权益说明
+  handleState(){
+    console.log("输出了吗")
+    wx.navigateTo({
+      url: '/pages/regulation/regulation',
+      success: (result) => {
+        
+      },
+     
+    });
+      
+  },
+
+  // 跳转代理页面
+  handleMember() {
+    wx.navigateTo({
+      url: '../../packageA/pages/applyAgent/applyAgent',
+      success: function(res){
+        // success
+      },
+      
+    })
+  },
+
+
+
+
+})

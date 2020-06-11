@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "个人中心",
+   "navigationBarBackgroundColor": "#FF4444",
+   "navigationBarTextStyle": "white",
+  "usingComponents":{
+    "btn-to-top": "/components/btnToTop/btnToTop",
+    "code":"./code/code",
+    "tabBar": "/components/tabBar/tabBar"
+  }
+}

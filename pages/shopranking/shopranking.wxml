@@ -1,0 +1,15 @@
+<view class="carlitop">
+  <view class="name">我的团队排名</view>
+</view>
+<view class="teambox" wx:if="{{List.length!=0}}" wx:for="{{List}}"  wx:key>
+  <view class="temboxl">
+    <image class="one" wx:if="{{index==0}}" src="{{imgurl}}icon_01@g.png" mode="widthFix"></image>
+    <image class="one" wx:if="{{index==1}}" src="{{imgurl}}icon_02@2xy.png" mode="widthFix"></image>
+    <image class="one" wx:if="{{index==2}}" src="{{imgurl}}icon_03@2xbo.png" mode="widthFix"></image>
+    <view wx:if="{{index>2}}">{{index+1}}</view>
+    <image class="heard" src="{{item.Picture?item.Picture:baseImg}}"></image>
+    <view>{{item.UserName?item.UserName:'匿名'}}</view>
+  </view>
+  <view class="temboxr">￥{{item.SubExpenditure}}</view>
+</view>
+<view class="noteamd">暂无团队</view>

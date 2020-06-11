@@ -1,0 +1,17 @@
+
+<view class="bind-phone">
+  <view class="title">修改手机号</view>
+  <view class="tip">验证旧手机号</view>
+  <view class="input-box flex-center">
+    <text class="input-box-title">旧手机号</text>
+    <input type="text" placeholder="请输入您的手机号" value="{{form.phone}}" bindinput="inputText" maxlength="11" data-type="phone" placeholder-class="input-placeholder" disabled/>
+  </view>
+  <view class="input-box flex-center">
+    <text class="input-box-title">验证码</text>
+    <input type="text" placeholder="请输入验证码" value="{{form.verifyCode}}" bindinput="inputText" maxlength="4" data-type="verifyCode" placeholder-class="input-placeholder" />
+    <view class="send-code {{(sendCodeText == '发送验证码' || sendCodeText == '重新发送') && 'text-active'}}" bindtap="sendSms">
+      {{sendCodeText}}
+    </view>
+  </view>
+  <button class="submit active" bindtap="checOldPhone">验证手机</button>
+</view>

@@ -1,0 +1,22 @@
+<view class="super">
+  <view wx:if="{{MyReferral!=null}}">
+    <view class="contentop">
+      <image class="header"  mode="widthFix"  src="{{MyReferral.picture}}" alt />
+      <view>
+        {{MyReferral.gradeName}}
+      </view>
+        
+    </view>
+    <van-cell-group>
+      <van-cell title="姓名" value="{{MyReferral.nickName? MyReferral.nickName:'无'}}" />
+      <van-cell title="联系电话" value="{{MyReferral.cellPhone?MyReferral.cellPhone:'无'}}"/>
+      <van-cell title="性别" value="{{MyReferral.gender==1?'男':MyReferral.gender==2?'女':'未填写'}}"/>
+      <van-cell title="加入时间" value="{{MyReferral.CreateDate?MyReferral.CreateDate:'无'}}"/>
+      <van-cell title="地址" value="{{MyReferral.address?MyReferral.address:'未填写'}}"/>
+      <van-cell title="个人描述"  value="" label="{{MyReferral.perDescribe?MyReferral.perDescribe:'无'}}"/>
+    </van-cell-group>
+  </view>
+ 
+</view>
+
+ <view wx:if="{{MyReferral==null}}" class="emity">暂无直属上级</view>

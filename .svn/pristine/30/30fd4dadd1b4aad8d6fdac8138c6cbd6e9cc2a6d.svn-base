@@ -1,0 +1,31 @@
+{
+  "navigationBarTextStyle": "black",
+  "backgroundColor":"#ffffff",
+  "navigationBarBackgroundColor":"#ffffff",
+  "navigationStyle": "custom",
+  "usingComponents":{
+    "Tab": "./tab/tab",
+    "LoveProduct":"./loveProduct/loveProduct",
+    "GoodsSpecs":"./goodsSpecs/goodsSpecs",
+    "UserComment": "./userComment/userComment",
+    "LimitTime": "./limitTime/limitTime",
+    "PriceItem":"./priceItem/priceItem",
+    "PictureDetail":"./pictureDetail/pictureDetail",
+    "Discount":"./discount/discount",
+    "Welfare": "./welfare/welfare",
+    "ShopPicture": "./shopPicture/shopPicture",
+    "GroupPlay":"./groupPlay/groupPlay",
+    "Coupon": "./coupon/coupon",
+    "share": "../../components/productShare/productShare",
+    "van-popup": "../../miniprogram_npm/vant-weapp/popup/index",
+    "van-tag": "../../miniprogram_npm/vant-weapp/tag/index",
+    "van-field": "../../miniprogram_npm/vant-weapp/field/index",
+    "van-icon": "../../miniprogram_npm/vant-weapp/icon/index",
+    "van-button": "../../miniprogram_npm/vant-weapp/button/index",
+    "van-switch": "../../miniprogram_npm/vant-weapp/switch/index",
+    "van-tab": "../../miniprogram_npm/vant-weapp/tab/index",
+    "van-tabs": "../../miniprogram_npm/vant-weapp/tabs/index",
+    "van-cell": "../../miniprogram_npm/vant-weapp/cell/index",
+    "van-cell-group": "../../miniprogram_npm/vant-weapp/cell-group/index"
+  }
+}

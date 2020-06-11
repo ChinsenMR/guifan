@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "首页",
+  "navigationBarBackgroundColor": "#FF4444",
+  "navigationBarTextStyle": "white",
+  "onReachBottomDistance": 200,
+  "usingComponents": {
+    "share": "../../components/productShare/productShare",
+    "tabBar": "../../components/tabBar/tabBar",
+    "van-popup": "../../miniprogram_npm/vant-weapp/popup/index"
+  }
+}

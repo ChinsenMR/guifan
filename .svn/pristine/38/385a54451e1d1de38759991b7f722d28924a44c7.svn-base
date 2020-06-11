@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "首页",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "onReachBottomDistance": 200,
+  "usingComponents": {
+    "share": "../../components/productShare/productShare",
+    "tabBar": "../../components/tabBar/tabBar"
+  }
+}

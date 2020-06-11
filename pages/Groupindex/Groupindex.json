@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "btn-to-top": "/components/btnToTop/btnToTop",
+    "indexgroup": "/components/indexgroup/indexgroup"
+  },
+  "navigationBarTitleText": "拼团",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black"
+}

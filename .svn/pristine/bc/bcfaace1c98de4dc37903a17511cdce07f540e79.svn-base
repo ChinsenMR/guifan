@@ -1,0 +1,122 @@
+const app = getApp();
+import { getOrderList } from '../../utils/requestApi.js';
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    imgUrl: app.data.imgurl,
+    activeItem: 0,
+    page: 1, //页码
+    pageType: 1, // 页面类型 --->   1为代理订单  2为分销订单
+    orderList: [],
+    allOrderNum: 0,  // 全部订单
+    completeOrderNum: 0, //  已完成订单
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (opt) {
+
+    //判断 页面类型  --->   1为代理订单  2为分销订单
+    let t = '代理订单';
+    if (opt.pageType == 2) t = '分销订单';
+    wx.setNavigationBarTitle({ title: t })
+    this.setData({ pageType: opt})
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function (e) {
+    this.initData(0);
+    // this.orderNum();
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  initData:function(status){
+    let that = this;
+    let { page, orderList } = this.data;
+    wx.showLoading({
+      title: '加载中...',
+    })
+    getOrderList({
+      IsReferralUserId: true,
+      pageSize: 10,
+      pageIndex: page,
+      status: status
+    }).then(res =>{
+      console.log("分销订单",res);
+      if (res.data.Data.Status = 'Success') {
+        wx.hideLoading();
+        if (res.data.Data.length != 0) {
+          res.data.Data.forEach(item => {
+            orderList.push(item)
+          })
+          that.setData({
+            orderList,
+            page: page + 1,
+          })
+        }
+      }
+      that.setData({
+        allOrderNum: res.data.AllOrderCount,  // 全部订单
+        completeOrderNum: res.data.FinishedOrderCount, //  已完成订单
+      })
+    })
+  },
+
+  selectNav:function(e){
+    let { status } = this.data;
+    this.setData({
+      activeItem: e.target.dataset.id,
+      orderList: [],
+      page: 1
+    })
+    this.initData(e.target.dataset.id)
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    this.initData();
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  }
+})

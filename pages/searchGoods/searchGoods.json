@@ -1,0 +1,9 @@
+{
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "零售商城",
+    "usingComponents": {
+      "searchResult": "./searchResult/searchResult",
+      "screenDrawer": "./screenDrawer/screenDrawer"
+    }
+}

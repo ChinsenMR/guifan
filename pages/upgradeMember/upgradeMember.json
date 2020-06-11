@@ -1,0 +1,8 @@
+{
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "升级会员",
+  "usingComponents":{
+    "GoodsSpecs": "../goodsDetail/goodsSpecs/goodsSpecs"
+  }
+}

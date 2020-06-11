@@ -1,0 +1,38 @@
+<!--pages/commodityevaluation/commodityevaluation.wxml-->
+<!-- <text>pages/commodityevaluation/commodityevaluation.wxml</text> -->
+<view id='box'>
+  <view class='topTitleBox'>
+    <view class='topList' wx:for="{{topdata}}" wx:key="index" > {{item.title}}</view>
+  </view>
+
+  <view class='evaluateBox'>
+      <view class='evaluateListBox' wx:for="{{evaluateData}}" wx:key="index" >
+          <view class='evaluateUserMsgBox'>
+            <view class='userhand'>
+               <image src='{{item.userheand}}'></image>
+            </view>
+            <view class='userNameBox'>
+              <view class='username'>{{item.userName}}</view>
+              <span class='userlevel'>{{item.membershiplevel}}</span>
+            </view>
+            <view class='startBox'> 
+              <image src='{{imgurl + "starton.png"}}' wx:for="{{item.start}}"  wx:key="indexs" ></image>
+              <image src='{{imgurl + "startnone.png"}}' wx:for="{{5 - item.start}}"  wx:key="indexs" ></image>
+            </view>
+          </view>
+
+          <view class='evaluateContenBox'>
+              <view class='evaluateConten'>
+              {{item.evaluateconten}}
+                  <!-- 第二次买了蛮好的用的，本身就是敏感肌用起来也很舒服。用完再继续，那二次购买有优惠价吗？或许会介绍朋友来买哦~ -->
+              </view>
+              <view class='evaluateImgBox'>
+                <image src='{{items.imgurl}}' wx:for="{{item.evaluateimg}}" wx:for-item="items" wx:key="indexs" ></image>
+              </view>
+              <view class='evaluateTime'>
+                {{item.membershiptime}}
+              </view>
+          </view>
+      </view>
+  </view>
+</view>

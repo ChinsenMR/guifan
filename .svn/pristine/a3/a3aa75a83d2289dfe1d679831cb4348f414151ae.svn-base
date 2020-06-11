@@ -1,0 +1,48 @@
+<view class='layout'>
+  <view class='navBar df ais' bindtap='selectNav'>
+    <text class='{{activeItem == 0? "active":""}}' data-id='0'>全部订单({{allOrderNum}})</text>
+    <text class='{{activeItem == 5? "active":""}}' data-id='5'>已完成({{completeOrderNum}})</text>
+  </view>
+
+  <view class='content-ul' wx:if="{{orderList.length!=0}}">
+    <view class='content-li' wx:for='{{orderList}}' wx:for-item='orderList' wx:for-index='index' wx:key>
+      <view class='order-inner'>
+        <view class='df ais jct-between order-code'>
+          <text>订单编号: {{orderList.OrderId}}</text>
+          <text>{{orderList.StatusText}}</text>
+        </view>
+        <view class='df ais'>订单时间: {{orderList.OrderDate}}</view>
+        <view class='df ais'>订单买家: {{orderList.RealName}}</view>
+        <view class='df ais order-price'>
+          <text>成交金额: </text>
+          <text>￥ {{orderList.Amount}}</text>
+        </view>
+        <view class='df ais employ-price' hidden='{{pageType != 1}}'>
+          <view>推荐人: {{orderList.Username}}</view>
+          <view>
+            <text>佣金:</text>
+            <text>￥28.00</text>
+          </view>
+        </view>
+      </view>
+
+      <view class='goodsInfo df ais-start' wx:for='{{orderList.LineItems}}' wx:for-item='LineItems' wx:key>
+        <image src='{{LineItems.Image}}' mode='aspectFill'></image>
+        <view class='goodsInfo-inner flex'>
+          <view class='df ais-start jct-between goods-title'>
+            <text>{{LineItems.Name}}</text>
+            <text>x{{LineItems.ShipmentQuantity}}</text>
+          </view>
+          <view>{{LineItems.SkuText}}</view>
+        </view>
+      </view>
+
+      <view class='goodsPrice df ais jct-end'>
+        <text>共 {{orderList.Quantity}} 件商品</text>
+        <text>净赚:￥{{orderList.Income}}</text>
+      </view>
+
+    </view>
+  </view>
+  <view class="emity" wx:if="{{orderList.length==0}}">暂无订单</view>
+</view>
