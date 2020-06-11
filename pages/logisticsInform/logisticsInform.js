@@ -70,7 +70,7 @@ Page({
   // onShareAppMessage: function () {
 
   // },
-
+  
   loadLogisticsInfo(id) {
     wx.$ajax({
       api: '/Api/VshopProcess.ashx',

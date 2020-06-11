@@ -87,7 +87,7 @@ Page({
     
     getProductsList({
       action: 'GetProducts',
-      pageSize: 2,
+      pageSize: 8,
       pageIndex: page,
       CatetoryId: cid
     }).then(res =>{

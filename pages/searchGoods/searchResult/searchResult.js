@@ -1,4 +1,6 @@
-import {getProductsList} from "../../../utils/requestApi"
+import {
+  getProductsList
+} from "../../../utils/requestApi"
 const app = getApp();
 Component({
   /**
@@ -8,7 +10,7 @@ Component({
     hiddenResult: Boolean,
     comList: {
       type: Array,
-      value:[]
+      value: []
     }
   },
 
@@ -17,39 +19,102 @@ Component({
    */
   data: {
     imgUrl: app.data.imgurl,
-    storeNum: 2,  // 显示店铺的数量
-    showResult: false,  //显示搜索结果
-    sortType: true,  // 排序类型
-    sortIcon: 'icon_jiage@2x.png',  //排序图标
-    sort:'',  //价格排序图标
+    storeNum: 2, // 显示店铺的数量
+    showResult: false, //显示搜索结果
+    sortType: true, // 排序类型
+    sortIcon: 'icon_jiage@2x.png', //排序图标
+    sort: '', //价格排序图标
     //商店列表
-    storeList:[
-      { img: 'touxiang_03@2x.png', title: '盼超 物理蚊香物理蚊香', coupon: false, info:'换购驱蚊扣 经济环保 物理灭蚊' },
-      { img: 'touxiang_03@2x.png', title: '盼超 物理蚊香物理蚊香', coupon: true, info: '换购驱蚊扣 经济环保 物理灭蚊' },
-      { img: 'touxiang_03@2x.png', title: '盼超 物理蚊香物理蚊香', coupon: false, info: '换购驱蚊扣 经济环保 物理灭蚊' },
-      { img: 'touxiang_03@2x.png', title: '盼超 物理蚊香物理蚊香', coupon: true, info: '换购驱蚊扣 经济环保 物理灭蚊' },
-      { img: 'touxiang_03@2x.png', title: '盼超 物理蚊香物理蚊香', coupon: false, info: '换购驱蚊扣 经济环保 物理灭蚊' },
-      { img: 'touxiang_03@2x.png', title: '盼超 物理蚊香物理蚊香', coupon: false, info: '换购驱蚊扣 经济环保 物理灭蚊' }
+    storeList: [{
+        img: 'touxiang_03@2x.png',
+        title: '盼超 物理蚊香物理蚊香',
+        coupon: false,
+        info: '换购驱蚊扣 经济环保 物理灭蚊'
+      },
+      {
+        img: 'touxiang_03@2x.png',
+        title: '盼超 物理蚊香物理蚊香',
+        coupon: true,
+        info: '换购驱蚊扣 经济环保 物理灭蚊'
+      },
+      {
+        img: 'touxiang_03@2x.png',
+        title: '盼超 物理蚊香物理蚊香',
+        coupon: false,
+        info: '换购驱蚊扣 经济环保 物理灭蚊'
+      },
+      {
+        img: 'touxiang_03@2x.png',
+        title: '盼超 物理蚊香物理蚊香',
+        coupon: true,
+        info: '换购驱蚊扣 经济环保 物理灭蚊'
+      },
+      {
+        img: 'touxiang_03@2x.png',
+        title: '盼超 物理蚊香物理蚊香',
+        coupon: false,
+        info: '换购驱蚊扣 经济环保 物理灭蚊'
+      },
+      {
+        img: 'touxiang_03@2x.png',
+        title: '盼超 物理蚊香物理蚊香',
+        coupon: false,
+        info: '换购驱蚊扣 经济环保 物理灭蚊'
+      }
     ],
-    resultList:[
-      { img: 'big_pic@2x.png', title:'明星同款 蜜丝佛轻薄透气不浮粉，好上妆', curPrice:'156', prePrice:'188' },
-      { img: 'big_pic@2x.png', title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆', curPrice: '435', prePrice: '188' },
-      { img: 'big_pic@2x.png', title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆', curPrice: '89', prePrice: '188' },
-      { img: 'big_pic@2x.png', title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆', curPrice: '566', prePrice: '188' },
-      { img: 'big_pic@2x.png', title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆', curPrice: '899', prePrice: '188' },
-      { img: 'big_pic@2x.png', title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆', curPrice: '29', prePrice: '188' },
-      { img: 'big_pic@2x.png', title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆', curPrice: '109', prePrice: '188' }
+    resultList: [{
+        img: 'big_pic@2x.png',
+        title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆',
+        curPrice: '156',
+        prePrice: '188'
+      },
+      {
+        img: 'big_pic@2x.png',
+        title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆',
+        curPrice: '435',
+        prePrice: '188'
+      },
+      {
+        img: 'big_pic@2x.png',
+        title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆',
+        curPrice: '89',
+        prePrice: '188'
+      },
+      {
+        img: 'big_pic@2x.png',
+        title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆',
+        curPrice: '566',
+        prePrice: '188'
+      },
+      {
+        img: 'big_pic@2x.png',
+        title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆',
+        curPrice: '899',
+        prePrice: '188'
+      },
+      {
+        img: 'big_pic@2x.png',
+        title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆',
+        curPrice: '29',
+        prePrice: '188'
+      },
+      {
+        img: 'big_pic@2x.png',
+        title: '明星同款 蜜丝佛轻薄透气不浮粉，好上妆',
+        curPrice: '109',
+        prePrice: '188'
+      }
     ],
 
     pageSize: 10,
     pageIndex: 1,
-    sortAction:0, // 排序字段
-    SortBy:'SalePrice',
-    newArray:[]
+    sortAction: 0, // 排序字段
+    SortBy: 'SalePrice',
+    newArray: []
   },
 
-  
-  
+
+
 
 
   // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
@@ -59,9 +124,9 @@ Component({
       // app.globalData.template.tabbar("tabBar", 1, this, app.data.cartNum) //0表示第一个tabba
       // this.getDataList()
       console.log(this.properties); // 父组件传过来的数组
-      
+
     },
-    
+
   },
 
 
@@ -85,29 +150,31 @@ Component({
 
     //跳转商品详情
     Toprodetai(e) {
-        console.log("shanglp",e)
+
       wx.navigateTo({
         url: `/pages/goodsDetail/goodsDetail?prDid=${e.currentTarget.dataset.productid}`,
       })
-      wx.setStorageSync("buyType", "fightgroup")
+
+      // 不明所以的操作
+      // wx.setStorageSync("buyType", "fightgroup")
     },
 
     // 加入购物车
-    addCart(){
+    addCart() {
       console.log("加入了")
     },
 
     // 更多会场
-    moreStore:function(param){
+    moreStore: function (param) {
       //  当paran == true 是  表示用户点击取消搜索按钮  还原默认设置
       this.setData({
-        storeNum: param == true ? 2:this.data.storeList.length,
-        showResult: param == true ? false:true
+        storeNum: param == true ? 2 : this.data.storeList.length,
+        showResult: param == true ? false : true
       })
     },
 
     //价格排序
-    priceSort:function(e){
+    priceSort: function (e) {
       this.triggerEvent("saleprice");
       // console.log(e)
       // let { resultList } = this.data;
@@ -134,22 +201,22 @@ Component({
       // // this.triggerEvent("saleprice", sortAction);
       // // this.triggerEvent("saleprice", SortBy);
     },
-    
+
     // 排序比较函数
-    compare: function (property, type){
+    compare: function (property, type) {
       return function (a, b) {
         var value1 = parseInt(a[property]);
         var value2 = parseInt(b[property]);
-        if (type){
+        if (type) {
           return value1 - value2;
-        }else{
+        } else {
           return value2 - value1;
         }
       }
     },
-    
+
     // 打开抽屉
-    openDrawer:function(){
+    openDrawer: function () {
       this.triggerEvent('drawerState')
     }
 

@@ -34,12 +34,15 @@
 						<text>x{{LineItems.ShipmentQuantity}}</text>
 					</view>
 					<view wx:if="{{LineItems.SkuText}}">{{LineItems.SkuText}}</view>
-					<view class="send_btn" bindtap="onReturnRefund" data-status='2' data-item='{{LineItems}}' data-orderid='{{orderList.OrderId}}' wx:if="{{orderList.IsAllowRefund}}">
+					<block hidden>
+							<view class="send_btn" bindtap="onReturnRefund" data-status='2' data-item='{{LineItems}}' data-orderid='{{orderList.OrderId}}' wx:if="{{orderList.IsAllowRefund}}">
 						申请退款
 					</view>
 					<view class="send_btn" bindtap="onReturnRefund" data-status='3' data-item='{{LineItems}}' data-orderid='{{orderList.OrderId}}' wx:if="{{orderList.IsAllowReturn}}">
 						退货退款
 					</view>
+					</block>
+					  
 					<navigator url="packageB/pages/afterSale/afterSale?id={{orderList.ReturnInfo.returnId}}&orderId={{orderList.OrderId}}&fromType=order"  wx:if="{{orderList.RefundInfo || orderList.ReturnInfo}}">
 						<view class="send_btn">
 							{{orderList.StatusText || "售后中"}}

@@ -686,6 +686,14 @@
 					"id": -1,
 					"name": "我的的的的的收藏",
 					"pathName": "packageA/pages/MyCollection/MyCollection",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageB/pages/expressDetail/expressDetail",
+					"pathName": "packageB/pages/expressDetail/expressDetail",
+					"query": "orderId=202006116568924",
 					"scene": null
 				}
 			]

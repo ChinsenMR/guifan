@@ -895,15 +895,6 @@ module.exports = {
 			data
 		}).then((res) => res)
 	},
-
-
-	/* 获取查看商品 */
-	getExpressGoodsInfo(data) {
-		return ajaxRequset({
-			url: '/Api/VshopProcess.ashx?action=GetLogisticsInfo',
-			data
-		}).then((res) => res)
-	},
 	/* 最新获取物流信息 */
 	getExpressInfo(data) {
 		return ajaxRequset({
@@ -911,5 +902,5 @@ module.exports = {
 			data
 		}).then((res) => res)
 	},
-
+	
 };

@@ -121,16 +121,20 @@ Page({
           title: '获取物流信息失败'
         })
       }
+      
+      wx.navigateTo({
+        url: `/packageB/pages/expressDetail/expressDetail?orderId=${orderid}`
+      })
 
-      wx.setStorage({
-        key: 'webViewUrl',
-        data: url,
-        success: (result) => {
-          wx.navigateTo({
-            url: `/packageB/pages/expressDetail/expressDetail`
-          })
-        },
-      });
+      // wx.setStorage({
+      //   key: 'webViewUrl',
+      //   data: url,
+      //   success: (result) => {
+      //     wx.navigateTo({
+      //       url: `/packageB/pages/expressDetail/expressDetail?orderId=${orderid}`
+      //     })
+      //   },
+      // });
 
 
     })

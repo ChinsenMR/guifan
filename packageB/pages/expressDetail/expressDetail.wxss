@@ -1,4 +1,8 @@
-web-view{
-  width: 750rpx;
-  height: 100vh;
+.steps-wrap {
+  padding: 30rpx;
+}
+
+.goods-wrap {
+  padding: 30rpx;
+  background-color: #fff;
 }
