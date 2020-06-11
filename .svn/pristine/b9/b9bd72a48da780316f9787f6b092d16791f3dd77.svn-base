@@ -895,12 +895,6 @@ module.exports = {
 			data
 		}).then((res) => res)
 	},
-	/* 最新获取物流信息 */
-	getExpressInfo(data) {
-		return ajaxRequset({
-			url: '/API/OrdersHandler.ashx?action=SearchExpressData',
-			data
-		}).then((res) => res)
-	},
-	
+
+
 };

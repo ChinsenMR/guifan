@@ -100,7 +100,7 @@
 }
 
 .Edit {
-  position: absolute;
+
   top: 12rpx;
   right: 20rpx;
 }

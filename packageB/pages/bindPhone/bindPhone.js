@@ -220,7 +220,7 @@ Page({
 			console.log(Status,msg)
 			if (Status == 'ok') {
 				wx.navigateBack({
-					delta: fromType ? 1 : 2,
+					delta: fromType ? 2 : 1,
 				});
 			} else {
 				wx.showToast({
@@ -229,7 +229,7 @@ Page({
 
 				if (msg == '手机已绑定') {
 					wx.navigateBack({
-						delta: fromType ? 1 : 2,
+						delta: fromType ? 2 : 1,
 					});
 				}
 			}

@@ -25,6 +25,6 @@ Component({
         scrollTop: 0,
         duration: 300
       })
-    }
+    },
   }
 })

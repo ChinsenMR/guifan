@@ -4,6 +4,6 @@
   "navigationBarTitleText": "分销下属",
   "usingComponents": {
     
-    "agent": "../components/agentComponent/agentComponent"
+    "agent": "../../../components/agentComponent/agentComponent"
   }
 }

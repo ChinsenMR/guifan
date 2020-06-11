@@ -182,7 +182,7 @@
                     <view>
                     夏季上新
                   </view>
-                  --->
+                  -->
                 </view>
 
                 <view class="product_price">
@@ -208,12 +208,11 @@
 </view>    
 
 <van-popup show="{{ showGif }}" bind:close="onClose">
-  <view class="showGifImages">
+  <view class="showGifImages" bindlongpress="saveImg" data-url="{{wxQrCode}}">
     <image src="{{wxQrCode}}"></image>
   </view>  
 
 </van-popup>
-
-<!-- 底部导航 -->
+<!-- 底部 -->
 <tabBar curActive='0'/>
 

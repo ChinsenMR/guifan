@@ -1063,5 +1063,55 @@ Page({
       showGif: false
     });
   },
+  /* 长按保存图片 */
+  saveImg(e) {
+    const url = e.currentTarget.dataset.url;
+    console.log(url, 'url')
+    const save = () => {
+      wx.saveImageToPhotosAlbum({
+        filePath: url,
+        success(res) {
+          console.log(res);
+        },
+        fail(res) {
+          console.log(res);
+        }
+      })
+    }
+    wx.getSetting({
+
+      success(res) {
+
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success(res) {
+              console.log(res, '222')
+              console.log('用户已经同意小程序获取位置信息')
+            },
+            fail() {
+              // 用户拒绝后回调
+              wx.showModal({
+                title: '提示',
+                content: '请打开权限，否则无法保存',
+                success(res) {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success(res) {}
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            }
+          })
+        } else {
+          save()
+        }
+      }
+    })
+
+  }
 
 });

@@ -42,7 +42,6 @@ Page({
     animationData: {}, //空动画对象属性
     tabHide: true,
     ceshiList: [],
-    showSetting: false,
     AThresholdUpGrade: false, //判断是否选择隐藏代理模块  true 隐藏
     userRepository: [{
         text: '预计收益',
@@ -106,12 +105,7 @@ Page({
         imgurl: imgurl2 + 'icon_shouhuodizi.png',
         text: '收货地址',
         url: "/pages/receivingAddress/receivingAddress"
-      },
-      {
-        imgurl: 'http://img.hmeshop.cn/hmeshopV3/Storage/master/202006111440549881770.png',
-        text: '我的消息',
-        url: "/pages/myNews/myNews"
-      },
+      }
       // {
       //     imgurl: imgurl2 + 'wdpt.png',
       //     text: '我的拼团',
@@ -135,7 +129,11 @@ Page({
         text: '直属上级',
         url: "/packageA/pages/Directsuperiors/Directsuperiors"
       },
-
+      {
+        imgurl: 'http://img.hmeshop.cn/hmeshopV3/Storage/master/202006111440549881770.png',
+        text: '我的消息',
+        url: "/pages/myNews/myNews"
+      },
       // {
       //   imgurl: imgurl2 + "icon_sjsj.png",
       //   text: '我要升级',
@@ -338,10 +336,8 @@ Page({
             WithDraw,
             Balance,
             Commission,
-            AnticipatedIncome,
-            
+            AnticipatedIncome
           },
-          IsReferral,
           KjCustomId,
           agencyCenter: agency,
           AThresholdUpGrade: AThresholdUpGrades,
@@ -351,11 +347,7 @@ Page({
 
     })
   },
-  handleChangePhone() {
-    this.setData({
-      showSetting: !this.data.showSetting
-    })
-  },
+
   /**
    * 生命周期函数--监听页面显示
    */
@@ -465,7 +457,7 @@ Page({
     }
     // this.getMenberInfo(); // 会员信息
     this.setManageData();
-
+    this.getOldPhone(); // 获取手机号码
   },
 
 
@@ -475,19 +467,15 @@ Page({
     getOldPhone().then(res => {
       const {
         data: {
-          status,
           data: {
             CellPhone
           }
         }
       } = res;
-      if (status == 'Success') {
-        this.setData({
-          openSetting: CellPhone
-        })
-
-        this.handleChangePhone();
-      }
+      console.log(CellPhone, '222')
+      this.setData({
+        openSetting: CellPhone
+      })
     })
 
 

@@ -1,5 +1,5 @@
 const app = getApp();
-
+import {getExpressInfo} from '../../../utils/requestApi'
 Page({
   /**
    * 页面的初始数据
@@ -16,6 +16,8 @@ Page({
     this.setData({
       params: options
     });
+
+    // this.getExpressInfo()
 
 
   },

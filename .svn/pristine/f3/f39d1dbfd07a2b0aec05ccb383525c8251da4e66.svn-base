@@ -1,33 +1,52 @@
 <import src="../../template/template.wxml" />
+<view class="setting-box-filter" bindtap="disableSetting" hidden></view>
+<view class="setting-box" bindtap="openSetting" hidden>
+<view class="setting-box-filter {{message_boxnoshow?'':'message_boxnoshow'}}" bindtap="disableSetting" >
 
-<!-- 设置手机号入口 -->
-<block  wx:if="{{showSetting}}">
-  <view class="setting-box-filter" bindtap="handleChangePhone"></view>
-  <view class="setting-box" bindtap="handleChangePhone" >
+<!---- 设置，绑定手机号码------->
+<view class="setting-box" bindtap="openSetting" wx:if="{{openSetting == ''}}">
+<view class="title">设置</view>
+  <navigator url="/packageB/pages/bindphone/bindphone"> <view class="item">
+   
+    </view>
+  </navigator>
+</view>
 
-    <view class="title">设置</view>
-      <navigator url="/packageB/pages/bindPhone/bindPhone" wx:if="{{!openSetting}}"> 
-        <view class="item">绑定手机号</view>
-      </navigator>
-      <navigator url="/packageB/pages/setNewPhone/setNewPhone" wx:else> 
-        <view class="item">修改手机号</view>
-      </navigator>
+<!---- 设置，修改手机号码------->
+<view class="setting-box" bindtap="openSetting" wx:if="{{openSetting != ''}}">
+<view class="title">设置</view>
+  <navigator url="/packageB/pages/setNewPhone/setNewPhone"> <view class="item">
+    修改手机号
+    </view>
+  </navigator>
+</view>
+
+</view>
 </view>
 
 
-</block>
-  
 <view class='box {{userInfo.gradeId==80?"yangtop":""}}'>
     <view  bindtap='isTap'>
-    <image class="setting" src="{{settingIcon}}" mode="aspectFill " bindtap="getOldPhone"></image>
+    <image class="setting" src="{{settingIcon}}" mode="aspectFill"></image>
     
     </view>
+  
+  <!-- <image src='https://hmeshop-1256233971.cos.ap-guangzhou.myqcloud.com/wxapp/images/bg.png'></image> -->
+  <!-- <view class='topBg'></view> -->
   <view class='content'>
     <view class='content-top-box'>
       <view class="content-jifen-wrap" bindtap='onSignIn'>
         <image src='http://hmqy.oss-cn-hangzhou.aliyuncs.com/hmeshop_jxy/images/icon_qiandao.png' class='topdate'></image>
         <view class='toptip'>签到领积分</view>
       </view>
+
+      <!-- 暂时用不上 -->
+      <!-- <view class='topclockBox' wx:if="{{false}}">
+        <navigator url='/pages/myNews/myNews' hover-class="none">
+          <image src='http://hmqy.oss-cn-hangzhou.aliyuncs.com/hmeshop_jxy/images/icon_new.png' class='topclock'></image>
+          <view class='topclocknum'>1</view>
+        </navigator>
+      </view> -->
     </view>
 
     <!-- <view class='c_top da' wx:if="{{user != ''}}"> -->
@@ -150,8 +169,8 @@
    
   </view>
 </view>
-<!-- 推广模块 -->
-<block wx:if="{{IsReferral}}">
+<!-- 3 -->
+<block wx:if="{{IsReferral == true}}">
 <view class='myorderBox'>
   <view class='myorderBox2'>
     <view class='agencyCenterTitle'>推广模块</view>
@@ -409,7 +428,7 @@
   </view>
 </view>
 
- <!-- 新增客服 --> 
+ <!---新增客服-----> 
  <view class="message_box" bindtap="getMessageData">
     <view></view>
     <view>客服</view>
