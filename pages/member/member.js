@@ -1,5 +1,9 @@
 // pages/member/member.js
-import { getMemberData, getindexsharedata, getOldPhone} from "../../utils/requestApi"
+import {
+  getMemberData,
+  getindexsharedata,
+  getOldPhone
+} from "../../utils/requestApi"
 const app = getApp();
 let interstitialAd = null
 import {
@@ -12,12 +16,12 @@ Page({
    */
   data: {
     IsReferral: false, //是否显示推广模块 
-    message_boxnoshow:false, //显示弹窗
-    openSetting:'', // 判断是否有手机号
-    IsOpenBalance:'',
-    baiduLineUrl:'', // 百度连桥地址
-    show:false,//是否显示code组件
-    code:'http://img.hmeshop.cn/hmeshop_jxy/images/icon_share@2x (1).png',//二维码路径
+    message_boxnoshow: false, //显示弹窗
+    openSetting: '', // 判断是否有手机号
+    IsOpenBalance: '',
+    baiduLineUrl: '', // 百度连桥地址
+    show: false, //是否显示code组件
+    code: 'http://img.hmeshop.cn/hmeshop_jxy/images/icon_share@2x (1).png', //二维码路径
     settingIcon: 'https://img.hmeshop.cn/hmeshopV3/Storage/master/202006101003384078060.png',
     path: "/pages/member/member", //
     vipcardInfo: null, //vip
@@ -36,8 +40,8 @@ Page({
     showmask2start: false,
     nowcreat: false,
     animationData: {}, //空动画对象属性
-    tabHide:true,
-    ceshiList:[],
+    tabHide: true,
+    ceshiList: [],
     AThresholdUpGrade: false, //判断是否选择隐藏代理模块  true 隐藏
     userRepository: [{
         text: '预计收益',
@@ -86,29 +90,29 @@ Page({
     ],
     // 2
     memberCenter: [{
-    //   imgurl: imgurl2 + "icon_youhuiquan2.png",
-    //   text: '积分',
-    //   url: "/packageA/pages/Myintegral/Myintegral"
-    // }, {
-    //   imgurl: imgurl2 + 'icon_youhuiquan.png',
-    //   text: '优惠券',
-    //   url: "/packageA/pages/MyCoupon/MyCoupon"
-    // }, {
-      imgurl: imgurl2 + "icon_shoucang.png",
-      text: "收藏",
-      url: "/packageA/pages/MyCollection/MyCollection"
-    }, {
-      imgurl: imgurl2 + 'icon_shouhuodizi.png',
-      text: '收货地址',
-      url: "/pages/receivingAddress/receivingAddress"
-    }
-    // {
-    //     imgurl: imgurl2 + 'wdpt.png',
-    //     text: '我的拼团',
-    //     url: "/pages/groupDetailsList/groupDetailsList"
-    // },
-    // {}
-  ],
+        //   imgurl: imgurl2 + "icon_youhuiquan2.png",
+        //   text: '积分',
+        //   url: "/packageA/pages/Myintegral/Myintegral"
+        // }, {
+        //   imgurl: imgurl2 + 'icon_youhuiquan.png',
+        //   text: '优惠券',
+        //   url: "/packageA/pages/MyCoupon/MyCoupon"
+        // }, {
+        imgurl: imgurl2 + "icon_shoucang.png",
+        text: "收藏",
+        url: "/packageA/pages/MyCollection/MyCollection"
+      }, {
+        imgurl: imgurl2 + 'icon_shouhuodizi.png',
+        text: '收货地址',
+        url: "/pages/receivingAddress/receivingAddress"
+      }
+      // {
+      //     imgurl: imgurl2 + 'wdpt.png',
+      //     text: '我的拼团',
+      //     url: "/pages/groupDetailsList/groupDetailsList"
+      // },
+      // {}
+    ],
     // 3
     menmbercneterThree: [{
         imgurl: imgurl2 + "icon_dingdan.png",
@@ -124,6 +128,11 @@ Page({
         imgurl: imgurl2 + "icon_08zhishu.png",
         text: '直属上级',
         url: "/packageA/pages/Directsuperiors/Directsuperiors"
+      },
+      {
+        imgurl: 'http://img.hmeshop.cn/hmeshopV3/Storage/master/202006111440549881770.png',
+        text: '我的消息',
+        url: "/pages/myNews/myNews"
       },
       // {
       //   imgurl: imgurl2 + "icon_sjsj.png",
@@ -211,53 +220,53 @@ Page({
         btn: '去升级'
       }
     ],
-    directlyImg:'',//上级代理图片
-    KjCustomId:'',//用来判断是不是代理
+    directlyImg: '', //上级代理图片
+    KjCustomId: '', //用来判断是不是代理
   },
-  gomyorder: function() {
+  gomyorder: function () {
     wx.navigateTo({
       url: '/pages/myOrder/myOrder',
     })
   },
-  showCode(){
+  showCode() {
     wx.showLoading({
       title: '加载中...',
     })
     getindexsharedata({
-      Type:1,
-      Path:'pages/member/member'
+      Type: 1,
+      Path: 'pages/member/member'
     }).then(res => {
       wx.hideLoading()
-      if(res.data.Result){
+      if (res.data.Result) {
         this.setData({
           show: true,
-          tabHide:false
+          tabHide: false
         })
         this.setData({
-          swiper:res.data.Result.Data
+          swiper: res.data.Result.Data
         })
-        
-      }else{
+
+      } else {
         wx.showToast({
           title: res.data.Message,
-          icon:'none'
+          icon: 'none'
         })
       }
       // console.log(res)
     })
   },
   // 显示tab栏
-  tabShow(e){
+  tabShow(e) {
     console.log('执行了吗');
     this.setData({
-      tabHide:true
+      tabHide: true
     })
   },
 
   //   订单栏
   Tomyorder(e) {
     var index = e.currentTarget.dataset.index
-    index = index == 4? 0 : index + 1
+    index = index == 4 ? 0 : index + 1
     wx.navigateTo({
       url: `/pages/myOrder/myOrder?type=${index}`,
     })
@@ -268,29 +277,43 @@ Page({
       Sharestaue: !this.data.Sharestaue
     })
   },
- 
+
 
   //获取会员信息
-  getMenberInfo(){
-    let that=this;
-    getMemberData().then(res=>{
-      console.log("会员信息",res);
-      if(res.data.Status=="Success"){
+  getMenberInfo() {
+    let that = this;
+    getMemberData().then(res => {
+      console.log("会员信息", res);
+      if (res.data.Status == "Success") {
         let agency = that.data.agencyCenter;
         wx.setStorageSync("userInfo", res.data.Data);
         let data = res.data.Data;
-        
-        let AThresholdUpGrades= res.data.Data.AThresholdUpGrade
-        agency.forEach(v=>{
-          if(v.text=="我的云仓"){
-            v.KjCustomId = data.KjCustomId//用于判断是否为代理,KjCustomId=0为非代理,将我的云仓隐藏
+
+        let AThresholdUpGrades = res.data.Data.AThresholdUpGrade
+        agency.forEach(v => {
+          if (v.text == "我的云仓") {
+            v.KjCustomId = data.KjCustomId //用于判断是否为代理,KjCustomId=0为非代理,将我的云仓隐藏
           }
         })
-        const { CreateDate, GradeName, UserName, UserId, picture, gradeId, WithDraw, Balance, Commission, AnticipatedIncome, KjCustomId ,IsOpenBalance, IsReferral} = res.data.Data;
+        const {
+          CreateDate,
+          GradeName,
+          UserName,
+          UserId,
+          picture,
+          gradeId,
+          WithDraw,
+          Balance,
+          Commission,
+          AnticipatedIncome,
+          KjCustomId,
+          IsOpenBalance,
+          IsReferral
+        } = res.data.Data;
 
         console.log('判断是否要修改支付密码', res.data.Data.IsOpenBalance)
         // if(res.data.Data.IsOpenBalance == true){
-          
+
         //   console.log('要跳转到重置密码页面')
         //   wx.navigateTo({
         //     url: '../../packageA/pages/setPassword/setPassword',
@@ -303,14 +326,25 @@ Page({
         // }
 
         that.setData({
-          userInfo: {CreateDate,GradeName,UserName,UserId,picture,gradeId,WithDraw,Balance,Commission,AnticipatedIncome},
+          userInfo: {
+            CreateDate,
+            GradeName,
+            UserName,
+            UserId,
+            picture,
+            gradeId,
+            WithDraw,
+            Balance,
+            Commission,
+            AnticipatedIncome
+          },
           KjCustomId,
           agencyCenter: agency,
           AThresholdUpGrade: AThresholdUpGrades,
           IsOpenBalance
         })
       }
-      
+
     })
   },
 
@@ -335,12 +369,12 @@ Page({
     that.setData({
       showmask2: true
     })
-    var ti = setTimeout(function() {
+    var ti = setTimeout(function () {
       that.setData({
         showmask2start: true
       })
     }, 300)
-    var ti2 = setTimeout(function() {
+    var ti2 = setTimeout(function () {
       that.setData({
         showmask3start: true
       })
@@ -348,18 +382,18 @@ Page({
   },
   cancelmask2() {
     var that = this
-    var ti = setTimeout(function() {
+    var ti = setTimeout(function () {
       that.setData({
         showmask2start: false
       })
     }, 300)
-    var ti2 = setTimeout(function() {
+    var ti2 = setTimeout(function () {
       that.setData({
         showmask3start: false
       })
     }, 700)
 
-    var ti3 = setTimeout(function() {
+    var ti3 = setTimeout(function () {
       that.setData({
         showmask2: false
       })
@@ -373,8 +407,8 @@ Page({
   },
 
   /**
-  * 生命周期函数--监听页面加载
-  */
+   * 生命周期函数--监听页面加载
+   */
   onLoad: function (options) {
     let user = wx.getStorageSync("userInfo");
     if (user == '') { // 判断用户信息 来判别是否登录
@@ -384,7 +418,7 @@ Page({
     }
     //用于专属二维码分享二维码进行解码跳转
     let scene = decodeURIComponent(options.scene).split('=')[1]
-    wx.setStorageSync('scene', scene);//将推荐人id存入本地,方便登录的时候获取
+    wx.setStorageSync('scene', scene); //将推荐人id存入本地,方便登录的时候获取
     if (scene) {
       // app.Login(scene)
       wx.navigateTo({
@@ -396,14 +430,14 @@ Page({
     let directlyImg = wx.getStorageSync('directlyImg');
     if (directlyImg) {
       let arr = this.data.menmbercneterThree;
-      arr.forEach(v=>{
-        if (v.text=="直属上级"){
+      arr.forEach(v => {
+        if (v.text == "直属上级") {
           v.imgurl = directlyImg
         }
       })
       this.setData({
         directlyImg,
-        menmbercneterThree:arr
+        menmbercneterThree: arr
       })
     }
 
@@ -411,13 +445,13 @@ Page({
   },
 
   /**
- * 生命周期函数--监听页面显示
- */
-  onShow: function() {
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     app.globalData.template.tabbar("tabBar", 3, this, app.data.cartNum) //0表示第一个tabba
-    
-    let cookie =wx.getStorageSync('cookie');
-    if(cookie){
+
+    let cookie = wx.getStorageSync('cookie');
+    if (cookie) {
       // 已登录  调用
       this.getMenberInfo(); // 会员信息
     }
@@ -428,21 +462,21 @@ Page({
 
 
 
-  	/* 获取旧手机号 */
-	getOldPhone() {
-		getOldPhone().then(res => {
-			const {
-				data: {
-					data: {
-						CellPhone
-					}
-				}
-			} = res;
-			console.log(CellPhone, '222')
-			this.setData({
-				openSetting : CellPhone
-			})
-		})
+  /* 获取旧手机号 */
+  getOldPhone() {
+    getOldPhone().then(res => {
+      const {
+        data: {
+          data: {
+            CellPhone
+          }
+        }
+      } = res;
+      console.log(CellPhone, '222')
+      this.setData({
+        openSetting: CellPhone
+      })
+    })
 
 
   },
@@ -504,19 +538,19 @@ Page({
   /**
    * 签到
    * */
-  onSignIn: function() {
+  onSignIn: function () {
     app.Fg({
       url: "/API/MembersHandler.ashx?action=SignIn"
     }).then(res => {
       // console.log("签到",res);
-      if(res.data.Status === 'Login'){
+      if (res.data.Status === 'Login') {
         wx.showToast({
           title: '还未登录~~~',
           icon: 'none',
           duration: 1500,
           mask: true,
         });
-      }else{
+      } else {
         if (res.data.Status === "Success") {
           this.setData({
             SignInpoints: res.data.points,
@@ -547,7 +581,7 @@ Page({
     })
   },
 
-  getList: function(pageIndex, pageSize, SendType, isDel, isShowRead) {
+  getList: function (pageIndex, pageSize, SendType, isDel, isShowRead) {
     var _this = this
     wx.request({
       url: getApp().data.url + '/apI/VshopProcess.ashx/ProcessRequest',
@@ -560,7 +594,7 @@ Page({
         isShowRead: isShowRead,
         sessionId: wx.getStorageSync('sessionId')
       },
-      success: function(res) {
+      success: function (res) {
         if (res.data.Status === 'success') {
           // console.log(res)
           _this.newsData = res.data.data
@@ -573,7 +607,7 @@ Page({
   },
 
 
-  goMyMessage: function(e) {
+  goMyMessage: function (e) {
     // console.log(e)
     var id = e.currentTarget.dataset.id
     // console.log(id)
@@ -582,21 +616,21 @@ Page({
     })
   },
 
-  later: function() {
+  later: function () {
     this.setData({
       showAccount: false
     })
   },
 
-  sure: function() {
+  sure: function () {
     this.setData({
       showAccount: false
     })
     wx.navigateTo({
       url: '',
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
+      success: function (res) {},
+      fail: function (res) {},
+      complete: function (res) {},
     })
   },
   // 分享
@@ -604,8 +638,7 @@ Page({
     if (res.from === 'button') {
       console.log("来自页面内转发按钮");
       console.log(res.target);
-    }
-    else {
+    } else {
       console.log("来自右上角转发菜单")
     }
     return {
@@ -621,15 +654,15 @@ Page({
   },
 
   //跳转login页面
-  handleLogin(){
+  handleLogin() {
     wx.navigateTo({
       url: '/pages/authorizationLogin/authorizationLogin',
     });
-    
+
   },
 
   // 客服
-  getMessageData:function(){
+  getMessageData: function () {
     var _this = this
     wx.navigateTo({
       url: '../web_view/web_view'
@@ -639,35 +672,35 @@ Page({
 
   // 设置密码
 
-  setPAssword:function(){
-    if(this.data.IsOpenBalance){
-        
-        console.log('要跳转到重置密码页面')
-        wx.navigateTo({
-          url: '../../packageA/pages/setPassword/setPassword',
-        })
-      }else{
-        console.log('要跳转到设置(新增)交易密码')
-        wx.navigateTo({
-          url: '../../packageA/pages/addPassword/addPassword',
-        })
-      }
+  setPAssword: function () {
+    if (this.data.IsOpenBalance) {
+
+      console.log('要跳转到重置密码页面')
+      wx.navigateTo({
+        url: '../../packageA/pages/setPassword/setPassword',
+      })
+    } else {
+      console.log('要跳转到设置(新增)交易密码')
+      wx.navigateTo({
+        url: '../../packageA/pages/addPassword/addPassword',
+      })
+    }
   },
 
 
-    // 点击判断是否需要设置手机号码
-  
-    isTap:function(){
-      this.setData({
-        message_boxnoshow: !this.data.message_boxnoshow
-      })
-      console.log(12313123)
-    },
+  // 点击判断是否需要设置手机号码
 
-    disableSetting:function(){
-      this.setData({
-        message_boxnoshow: !this.data.message_boxnoshow
-      })
-    }
-  
+  isTap: function () {
+    this.setData({
+      message_boxnoshow: !this.data.message_boxnoshow
+    })
+    console.log(12313123)
+  },
+
+  disableSetting: function () {
+    this.setData({
+      message_boxnoshow: !this.data.message_boxnoshow
+    })
+  }
+
 })

@@ -1,9 +1,4 @@
-// pages/newAddress/newAddress.js
-import {
-  parseArea,
-  areaList,
-  parse
-} from "../../utils/addressparse.js"
+
 import {
   getRegion,
   modifyAddress

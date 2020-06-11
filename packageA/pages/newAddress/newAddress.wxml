@@ -2,12 +2,13 @@
 <!-- <text>pages/newAddress/newAddress.wxml</text> -->
 
 <view class='box'>
-  <view class='fromtop'>
+  <view class='fromtop' wx:if="{{false}}">
     <view class='shibie'>
       <textarea class='shibietext' bindinput="userWhrite" data-copyPlate="{{copyPlate}}" value='{{copyPlate}}' disabled='{{false}}' placeholder='粘贴地址自动填写逗号分隔 收货人，手机号，地址' placeholder-style='font-size: 26rpx; color: #B1B1B1;'></textarea>
       <view class='shibiebtn' catchtap='clickshibie'>识别</view>
     </view>
   </view>
+  
   <view class='fromeBox'>
     <view class='fromeone' wx:for="{{fromdata}}" wx:key="{{index}}">
       <view class='username'>{{item.title}}</view>

@@ -69,11 +69,7 @@
           编辑资料 >
         </view>
       </navigator>
-      <navigator url="../../pages/myNews/myNews" class='myNews' hover-class="none">
-        <view class="myNews">
-          我的消息 >
-        </view>
-      </navigator>
+    
     </view>
     <!-- 登录按钮 -->
     <view class="login_btn" wx:if="{{userInfo==''}}" bindtap="handleLogin">
@@ -195,18 +191,19 @@
 
 
 <!-- 代理中心 -->
-<block wx:if="{{AThresholdUpGrade}}">
+<block >
   <view class='agencyCenter'>
     <view class='agencyCenter2'>
       <view class='agencyCenterTitle'>代理模块</view>
       <view class='agencyCenterListBox '>
         <navigator 
-        class="agencyCenterList" 
-        wx:for="{{agencyCenter}}" 
-        url="{{item.url}}" 
-        wx:key="index" 
-        hover-class="none" 
-        wx:if="{{index != item.KjCustomId}}">
+          class="agencyCenterList" 
+          wx:for="{{agencyCenter}}" 
+          url="{{item.url}}" 
+          wx:key="index" 
+          hidden="{{item.text == '升级申请' && !AThresholdUpGrade}}"
+          hover-class="none" 
+          wx:if="{{index != item.KjCustomId}}">
           <image src='{{item.imgurl}}'></image>
           <view class=''>{{item.text}}</view>
         </navigator>

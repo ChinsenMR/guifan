@@ -245,10 +245,12 @@ Page({
     } = this.data;
 
     wx.chooseImage({
+      count: 1,
       success: (res) => {
         wx.getFileSystemManager().readFile({
           filePath: res.tempFilePaths[0],
           encoding: 'base64',
+       
           success: (data) => {
             Uploadimgbybase64({
               baseStr: data.data,

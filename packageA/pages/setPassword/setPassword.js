@@ -1,4 +1,6 @@
-import { openBalance } from "../../../utils/requestApi";
+import {
+  openBalance
+} from "../../../utils/requestApi";
 Page({
 
   /**
@@ -19,29 +21,30 @@ Page({
   formSubmit: function (e) {
     let valObj = e.detail.value;
     console.log(valObj)
-    
+
+    if(valObj.passVal !== valObj.passVals){
+      return wx.showToast({icon: 'none', title: '两次密码不一致'})
+    }
+
     openBalance({
-      oldPassword:valObj.oldPassword,
-      password: valObj.passVal,  //	密码
+      oldPassword: valObj.oldPassword,
+      password: valObj.passVal, //	密码
       confirmPassword: valObj.passVals //	再次输入密码
     }).then(res => {
       console.log("输出res", res);
-      if(res.data.Status=="Faile"){
-        wx.showToast({
-          title: res.data.Message,
-          icon: 'none',
-          duration: 1500,
-          mask: true,
-        });
-      }else if(res.data.Status=="ok"){
+      if (res.data.Status == "ok") {
 
         wx.navigateBack({
           delta: 1
         })
-        // wx.redirectTo({
-        //   url: '/packageA/pages/getInitDraw/getInitDraw',
-        // });
-          
+
+      } else {
+        wx.showToast({
+          title: res.data.Message || res.data.msg,
+          icon: 'none',
+          duration: 1500,
+          mask: true,
+        });
       }
     })
 

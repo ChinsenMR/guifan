@@ -367,11 +367,11 @@ Page({
 
         
         if (res.data.Data.length === 0){
-          wx.showToast({
-            title: '数据加载完成~',
-            icon: 'none',
-            duration: 3000,
-          })
+          // wx.showToast({
+          //   title: '数据加载完成~',
+          //   icon: 'none',
+          //   duration: 3000,
+          // })
           return false
         }else{
           var newData = {}

@@ -1,22 +1,27 @@
-<!--packageA/pages/MyCollection/MyCollection.wxml-->
-<view class="colect" wx:if="{{List.length!=0}}">
-  <block wx:for="{{List}}" wx:key="{{item}}">
-    <view class="containt" data-productid="{{item.ProductId}}" bindtap="Toprodetai">
-      <!-- <image src="{{item.ThumbnailUrl}}" mode="widthFix"></image> -->
-      <image src="{{item.ThumbnailUrl}}" ></image>
-      <view class="contr">
-        <!-- IsValid 用来判断是否失效 -->
-        <view class="name">{{item.ProductName}}</view>
-        <view class="people">{{item.FavoriteCount}}人收藏</view>
-        <view class="redue" wx:if="{{item.IsValid==true}}">比收藏时{{item.DiffPrice<0?'降价':'涨价'}}{{item.DiffPrice}}元</view>
-        
-        <view class="pricebox">
-          <view class="price" wx:if="{{item.IsValid==true}}">￥{{item.SalePrice}}</view>
-          <view class="active" wx:if="{{item.IsValid==false}}">{{item.IsValid==false?'失效':''}}</view>
-          <!-- <view class="liker">找相似</view> -->
+<van-nav-bar right-text="{{!edit ? '编辑' : '完成'}}" bind:click-right="onClickRight" custom-style="color: rgb(255,68,68)" />
+<view class="colect" wx:if="{{collectList.length!=0}}">
+  <block wx:for="{{collectList}}" wx:key="{{index}}">
+    <view class="flex-center">
+      <van-checkbox value="{{ item.checked }}" bind:change="checkItem" data-index="{{index}}" checked-color="rgb(255,68,68)" wx:if="{{edit}}"></van-checkbox>
+      <view class="containt" data-productid="{{item.ProductId}}" bindtap="seeDetail">
+        <image src="{{item.ThumbnailUrl}}" mode="aspectFill"></image>
+        <view class="contr" bindtap="seeDetail">
+          <view class="name">{{item.ProductName}}</view>
+          <view class="pricebox">
+            <view class="price" wx:if="{{item.IsValid}}">￥{{item.SalePrice}}</view>
+            <view class="active" wx:if="{{item.IsValid}}">{{item.IsValid==false?'失效':''}}</view>
+          </view>
         </view>
       </view>
     </view>
   </block>
 </view>
-<view class="emity" wx:if="{{List.length==0}}">暂无收藏</view>
+<view class="emity" wx:if="{{collectList.length==0}}">暂无收藏</view>
+<van-submit-bar button-text="删除" bind:submit="removeItems" tip="{{ true }}" wx:if="{{edit}}">
+  <view class="handle-box flex-center">
+    <van-checkbox value="{{ checked }}" bind:change="onChange" checked-color="rgb(255,68,68)">
+      全选
+    </van-checkbox>
+  </view>
+</van-submit-bar>
+

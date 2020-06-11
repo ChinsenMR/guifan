@@ -627,15 +627,21 @@ module.exports = {
 	 *  开通预付款账号（修改设置交易密码）
 	 */
 	openBalance(data) {
-		return ajaxRequset({ url: '/api/VshopProcess.ashx?action=ChangeTranPassword', data }).then((res) => res);
-		
+		return ajaxRequset({
+			url: '/api/VshopProcess.ashx?action=ChangeTranPassword',
+			data
+		}).then((res) => res);
+
 	},
 
 	/**
 	 *  开通预付款账号（新增交易密码）
 	 */
 	NewOpenBalance(data) {
-		return ajaxRequset({ url: '/api/VshopProcess.ashx?action=OpenBalance', data }).then((res) => res);
+		return ajaxRequset({
+			url: '/api/VshopProcess.ashx?action=OpenBalance',
+			data
+		}).then((res) => res);
 	},
 	/**
 	 * 获取代理等级列表
@@ -874,6 +880,21 @@ module.exports = {
 			data
 		}).then((res) => res)
 	},
-	
+
+	/* 获取收藏列表 */
+	getCollectList(data) {
+		return ajaxRequset({
+			url: '/API/MembersHandler.ashx?action=GetFavorites',
+			data
+		}).then((res) => res)
+	},
+	/* 收藏或取消收藏 */
+	handleCollect(data) {
+		return ajaxRequset({
+			url: '/API/MembersHandler.ashx?action=AddFavorite',
+			data
+		}).then((res) => res)
+	},
+
 
 };

@@ -67,7 +67,7 @@ var isShow = function(){
             <view class="oBtn-b" bindtap="seeExpressStep" data-orderId="{{list.OrderId}}" >
               查看物流
             </view>
-            <button class='oBtn-r' data-id="{{list.OrderId}}" bindtap="Onsureshoping" wx:if="{{list.Status == 2}}">
+            <button class='oBtn-r' data-id="{{list.OrderId}}" bindtap="Onsureshoping" wx:if="{{list.Status == 3}}">
               确认收货
             </button>
           </view>
