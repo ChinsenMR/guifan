@@ -804,21 +804,41 @@ Page({
         break;
     }
   },
+  /* 页面跳转 */
+  goPage(url) {
+    wx.navigateTo({
+      url
+    })
+  },
   //跳转到商品详情的
   goToGoodsDetail(e) {
-    let item_id = e.currentTarget.dataset.item_id ? e.currentTarget.dataset.item_id : null
-    console.log(item_id)
-    if (!!item_id) {
-      console.log('跳转商品详情')
-      // wx.navigateTo({
-      //   url: '',//跳转商品详情页面
-      // })
-      wx.navigateTo({
-        url: `/pages/goodsDetail/goodsDetail?prDid=${item_id}`,
-      })
+    console.log(e)
+    const {
+      currentTarget: {
+        dataset: {
+          item,
+          item_id
+        }
+      }
+    } = e;
+
+    if (item && item.linkType) {
+      switch (item.linkType) {
+        case 7:
+          this.goPage('/pages/member/member');
+          break
+        case 8:
+          this.goPage('/pages/cart/cart');
+          break
+      }
+      return
+    }
+
+    if (item_id) {
+      this.goPage(`/pages/goodsDetail/goodsDetail?prDid=${item_id}`)
     } else {
       wx.showToast({
-        title: '没有这个商品无法跳转',
+        title: '商品不存在或已过期',
       })
     }
   },

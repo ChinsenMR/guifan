@@ -184,7 +184,7 @@
     <!-- 小图模式 -->
     <view class='list' wx:if="{{content.layout=='1'}}">
       <ul>
-        <li wx:for="{{content.goodslist}}" wx:key="index" wx:for-item="dataset" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
+        <li wx:for="{{content.goodslist}}" wx:key="index" wx:for-item="dataset" data-item_id="{{dataset.item_id}}"data-item="{{dataset}}" bindtap="goToGoodsDetail">
           <!-- <navigator url='/pages/productDetail/productDetail?id={{dataset.item_id}}' hover-class="none"> -->
           <view class="nav">
             <image src='{{dataset.pic}}' alt=""></image>
@@ -202,7 +202,7 @@
     <!-- 大图模式 -->
     <view class='blist' wx:if="{{content.layout=='2'}}">
       <ul>
-        <li wx:for="{{content.goodslist}}" wx:key="index" wx:for-item="dataset" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
+        <li wx:for="{{content.goodslist}}" wx:key="index" wx:for-item="dataset" data-item_id="{{dataset.item_id}}" data-item="{{dataset}}" bindtap="goToGoodsDetail">
           <!-- <navigator url='/pages/productDetail/productDetail?id={{dataset.item_id}}' hover-class="none"> -->
           <view class="nav">
             <image mode='widthFix' src='{{dataset.pic}}' alt=""></image>
@@ -221,7 +221,7 @@
     <view wx:if="{{content.layout=='3'}}">
       <block wx:for="{{content.goodslist}}" wx:for-item="dataset" wx:key="index">
         <ul>
-          <li class="list_o" wx:key="index" wx:if="{{index%3 ===0||index===0}}" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
+          <li class="list_o" wx:key="index" wx:if="{{index%3 ===0||index===0}}" data-item_id="{{dataset.item_id}}"  data-item="{{dataset}}"bindtap="goToGoodsDetail">
             <!-- <navigator url='/pages/productDetail/productDetail?id={{dataset.item_id}}' hover-class="none"> -->
             <view class="nav">
               <image mode='widthFix' src='{{dataset.pic}}' alt=""></image>
@@ -236,7 +236,7 @@
           </li>
         </ul>
         <ul class="owlist_t">
-          <li wx:key="index" wx:if="{{index%3!=0}}" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
+          <li wx:key="index" wx:if="{{index%3!=0}}" data-item_id="{{dataset.item_id}}"data-item="{{dataset}}" bindtap="goToGoodsDetail">
             <!-- <navigator url='/pages/productDetail/productDetail?id={{dataset.item_id}}' hover-class="none"> -->
             <view class="nav">
               <image src='{{dataset.pic}}' alt=""></image>
@@ -255,7 +255,7 @@
     <!--  列表模式 -->
     <view class='ullist' wx:if="{{content.layout=='4'}}">
       <ul>
-        <li wx:for="{{content.goodslist}}" wx:key="index" wx:for-item="dataset" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
+        <li wx:for="{{content.goodslist}}" wx:key="index" wx:for-item="dataset" data-item="{{dataset}}" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
           <!-- <navigator url='/pages/productDetail/productDetail?id={{dataset.item_id}}' hover-class="none"> -->
           <view class="nav">
             <image src='{{dataset.pic}}' alt=""></image>
@@ -281,7 +281,7 @@
   <!-- 小图模式 -->
   <view class='list' wx:if="{{content.layout==1}}">
     <ul>
-      <li wx:for="{{content.goodslist}}" wx:key="index" wx:for-item="dataset" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
+      <li wx:for="{{content.goodslist}}" wx:key="index" wx:for-item="dataset"data-item="{{dataset}}" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
         <!-- <navigator url='/pages/productDetail/productDetail?id={{dataset.item_id}}' hover-class="none"> -->
         <view class="nav">
           <image src='{{dataset.pic}}' alt=""></image>
@@ -303,7 +303,7 @@
   <!-- 大图模式 -->
   <view class='blist' wx:if="{{content.layout==2}}">
     <ul>
-      <li wx:for="{{content.goodslist}}" wx:key="index" wx:for-item="dataset" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
+      <li wx:for="{{content.goodslist}}" wx:key="index" wx:for-item="dataset" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail" data-item="{{dataset}}">
         <!-- <navigator url='/pages/productDetail/productDetail?id={{dataset.item_id}}' hover-class="none"> -->
         <view class="nav">
           <image mode='widthFix' src='{{dataset.pic}}' alt=""></image>
@@ -327,7 +327,7 @@
   <view wx:if="{{content.layout==3}}">
     <block wx:for="{{content.goodslist}}" wx:for-item="dataset" wx:key="index">
       <ul>
-        <li class="list_o" wx:key="index" wx:if="{{index%3 ===0||index===0}}" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
+        <li class="list_o" wx:key="index" wx:if="{{index%3 ===0||index===0}}" data-item_id="{{dataset.item_id}}" data-item="{{dataset}}" bindtap="goToGoodsDetail">
           <!-- <navigator url='/pages/productDetail/productDetail?id={{dataset.item_id}}' hover-class="none"> -->
           <view class="nav">
             <image mode='widthFix' src='{{dataset.pic}}' alt=""></image>
@@ -345,7 +345,7 @@
         </li>
       </ul>
       <ul class="owlist_t">
-        <li wx:key="index" wx:if="{{index%3!=0}}" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
+        <li wx:key="index" wx:if="{{index%3!=0}}" data-item_id="{{dataset.item_id}}" data-item="{{item}}" bindtap="goToGoodsDetail">
           <!-- <navigator url='/pages/productDetail/productDetail?id={{dataset.item_id}}' hover-class="none"> -->
           <view class="nav" style="margin-bottom: 10rpx;">
             <image src='{{dataset.pic}}' alt=""></image>
@@ -365,7 +365,7 @@
   <!-- 列表模式 -->
   <view class='ullist' wx:if="{{content.layout=='4'}}">
     <ul>
-      <li wx:for="{{content.goodslist}}" wx:for-item="dataset" wx:key="index" data-item_id="{{dataset.item_id}}" bindtap="goToGoodsDetail">
+      <li wx:for="{{content.goodslist}}" wx:for-item="dataset" wx:key="index" data-item_id="{{dataset.item_id}}" data-item="{{item}}" bindtap="goToGoodsDetail">
         <!-- <navigator url='/pages/productDetail/productDetail?id={{item.item_id}}' hover-class="none"> -->
         <view class="nav">
           <image src='{{dataset.pic}}' alt=""></image>

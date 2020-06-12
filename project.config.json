@@ -700,6 +700,13 @@
 					"id": -1,
 					"name": "pages/searchGoods/searchGoods",
 					"pathName": "pages/searchGoods/searchGoods",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/sortDetail/sortDetail",
+					"pathName": "packageA/pages/sortDetail/sortDetail",
 					"scene": null
 				}
 			]

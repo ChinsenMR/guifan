@@ -165,7 +165,7 @@
         
          <view class="explosive_text">Explosive products</view>
       </view>
-      <view wx:for="{{todayData}}" wx:key="index" data-item_id="{{item.ProductId}}"  bindtap="goToGoodsDetail" >
+      <view wx:for="{{todayData}}" wx:key="index" data-aaa="{{item}}" data-item_id="{{item.ProductId}}" data-fu="111"  bindtap="goToGoodsDetail" >
           <view class="product_item">
             <view class="product_images">
               <image class="" src="{{item.ThumbnailUrl410}}" mode="widthFix"/>
