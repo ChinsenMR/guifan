@@ -676,7 +676,7 @@
 					"scene": null
 				},
 				{
-					"id": 89,
+					"id": -1,
 					"name": "pages/productEvaluate/productEvaluate",
 					"pathName": "pages/productEvaluate/productEvaluate",
 					"query": "",
@@ -694,12 +694,6 @@
 					"name": "packageB/pages/expressDetail/expressDetail",
 					"pathName": "packageB/pages/expressDetail/expressDetail",
 					"query": "orderId=202006116568924",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/searchGoods/searchGoods",
-					"pathName": "pages/searchGoods/searchGoods",
 					"scene": null
 				}
 			]

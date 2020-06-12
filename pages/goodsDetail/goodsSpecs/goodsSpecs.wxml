@@ -45,7 +45,7 @@
         <view class='select-inner df ais'>
           <view wx:for='{{skuItem.AttributeValue}}' wx:for-item="AttributeValue" wx:key="index" bindtap='selectItem' class='{{AttributeValue.selectStatus? "active":""}} df ais' data-index='{{skuItemIndex}}' data-attributeId='{{skuItem.AttributeId}}' data-value='{{AttributeValue.Value}}'
             data-valueId='{{AttributeValue.ValueId}}'>
-            <image src='{{AttributeValue.ImageUrl}}' mode='widthFix' wx:if='{{AttributeValue.ImageUrl !=""}}'></image>
+            <!-- <image src='{{AttributeValue.ImageUrl}}' mode='widthFix' wx:if='{{AttributeValue.ImageUrl !=""}}'></image> -->
             <text>{{AttributeValue.Value}}</text>
           </view>
         </view>
