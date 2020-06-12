@@ -25,9 +25,9 @@ Page({
       BrandIndex: null,
       LevelIndex: null,
     },
-    Message:{},   // 存储代理的东西
+    Message: {}, // 存储代理的东西
     HeadData: "",
-    UserId:"",
+    UserId: "",
     isShowAgency: false, //根据不同等级切换不同输入框
     listFlag: [],
     list: [], //代理升级的条件
@@ -40,7 +40,7 @@ Page({
     isShow: false,
     status: "", //是否同意协议
     isWin: false,
-    ProductLists:[] // 购买商品的productlist
+    ProductLists: [] // 购买商品的productlist
   },
 
   /**
@@ -51,16 +51,16 @@ Page({
     console.log(options.ProductLists)
     wx.getStorage({
       key: 'userInfo',
-      success (res) {
+      success(res) {
         console.log(res.data.picture)
         _this.setData({
-          HeadData:res.data.picture,
-          UserId:res.data.UserId
+          HeadData: res.data.picture,
+          UserId: res.data.UserId
         })
       }
     })
     _this.setData({
-      ProductLists:options.ProductLists,
+      ProductLists: options.ProductLists,
     })
     // ProductLists
     // let KjId = wx.getStorageSync("userInfo").KjCustomId;
@@ -161,33 +161,35 @@ Page({
     //     }
     //   }
     // });
-      let ProductListArr = new Array()
-      ProductListArr = this.data.ProductLists.split(",") // 将确认订单过来的字符串转化为数组形式
-      // console.log(ProductListArr,this.data.ProductLists,typeof(this.data.ProductLists))
-      getAgentLevelList({ProductList: ProductListArr}).then((res) => {
-        console.log(res.data)
-        const tempList = (res.data.Result && res.data.Result.lstLevel) || [];
-        if (res.data.Result.Status == 'Success') {
-          this.setData({
-            Message:res.data.Result.Message,
-            agentLevelList: tempList,
+    let ProductListArr = new Array()
+    ProductListArr = this.data.ProductLists.split(",") // 将确认订单过来的字符串转化为数组形式
+    // console.log(ProductListArr,this.data.ProductLists,typeof(this.data.ProductLists))
+    getAgentLevelList({
+      ProductList: ProductListArr
+    }).then((res) => {
+      console.log(res.data)
+      const tempList = (res.data.Result && res.data.Result.lstLevel) || [];
+      if (res.data.Result.Status == 'Success') {
+        this.setData({
+          Message: res.data.Result.Message,
+          agentLevelList: tempList,
+        });
+      } else {
+        wx.showToast({
+          title: res.data.Message,
+          icon: "none",
+          duration: 2000,
+          mask: true,
+        });
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: 1,
           });
-        } else {
-          wx.showToast({
-            title: res.data.Message,
-            icon: "none",
-            duration: 2000,
-            mask: true,
-          });
-          setTimeout(() => {
-            wx.navigateBack({
-              delta: 1,
-            });
-          }, 1500);
-          return;
-        }
-      });
-    },
+        }, 1500);
+        return;
+      }
+    });
+  },
 
   //点击同意协议
   // handleTY(e) {
@@ -253,14 +255,18 @@ Page({
   onUnload: function () {},
   onPicker(e) {
     console.log(e);
-    const { value } = e.detail;
+    const {
+      value
+    } = e.detail;
     this.setData({
       "form.Region": value[0] + "," + value[1] + "," + value[2],
     });
   },
 
   selectItem: function (e) {
-    const { type } = e.currentTarget.dataset;
+    const {
+      type
+    } = e.currentTarget.dataset;
     if (type == 1) {
       this.setData({
         "form.BrandIndex": e.detail.value,
@@ -315,7 +321,10 @@ Page({
     // }
 
     let RegionArray = Region.split(",");
-    let { agentBrandList, form } = this.data;
+    let {
+      agentBrandList,
+      form
+    } = this.data;
     console.log(RegionArray);
     let arr = {
       Name,
@@ -337,24 +346,35 @@ Page({
         url: "/API/KjAgentHandler.ashx?action=ApplyKjAgent",
         data: {
           JsonObj: JSON.stringify(arr),
-          OrderId:'',
-          UserId:this.data.UserId
+          OrderId: '',
+          UserId: this.data.UserId
           //其他参数
         },
         header: {
-          Cookie: wx.getStorageSync('cookie') 
+          Cookie: wx.getStorageSync('cookie')
         }
       })
       .then((res) => {
         console.log(res)
         const {
-          data: { Message, Status },
+          data: {
+            Message,
+            Status
+          },
         } = res;
         wx.showToast({
           title: Message,
         });
         if (Status == "Success") {
+          const pages = getCurrentPages();
+          const target = pages[pages.length - 1];
+          
+          target.setData({
+            IsUpdateGradeCondition: false
+          })
+
           setTimeout(() => {
+
             wx.navigateBack({
               delta: 1,
             });

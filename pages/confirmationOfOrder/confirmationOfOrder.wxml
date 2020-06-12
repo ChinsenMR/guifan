@@ -151,7 +151,7 @@
                     </van-radio-group> 
                   </view>
                     <view wx:if="{{ radio === 'person' }}" class="">
-                        <form bindsubmit="formSubmit" bindreset="formReset">
+                        <form bindsubmit="selectInvoiceType"  bindreset="formReset">
                           <view class="invoice_info">
                           <van-cell-group>
                               <van-field
@@ -194,7 +194,7 @@
                     </view>
                       
                     <view wx:if="{{ radio === 'conpany' }}" class="">
-                      <form bindsubmit="formSubmit1" bindreset="formReset">
+                      <form bindsubmit="selectInvoiceType" bindreset="formReset">
                          <view class="company_invouce">
                           <van-cell-group>
                             <van-field
@@ -286,7 +286,7 @@
 
               </van-tab>
               <van-tab title="增值税发票" name="增值税发票">
-               <form bindsubmit="formSubmit2" bindreset="formReset">
+               <form bindsubmit="selectInvoiceType2" bindreset="formReset">
                   <view class="invoice_tip">
                     发票将在订单完成之后0-1个工作日后寄出。
                   </view>
@@ -403,7 +403,7 @@
       </van-popup>
 
 
-      <!---新增代码 是否填写邀请码2020/6/1 --->
+      <!---新增代码 是否填写邀请码2020/6/1 -->
       <van-popup
         show="{{ !IsExistReferral }}"
         position="bottom"

@@ -199,8 +199,8 @@ App({
     //url: 'https://dlyl.hmeshop.cn'
 
 
-     url:'http://192.168.3.86:8088' // 本地
+    //  url:'http://192.168.3.86:8088' // 本地
      // 线上
-    //  url:'https://foreverenjoy.guifang.net.cn'   
+     url:'https://foreverenjoy.guifang.net.cn'   
   }
 })

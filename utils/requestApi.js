@@ -912,4 +912,13 @@ module.exports = {
 		}).then((res) => res)
 	},
 
+	selectInvoiceType(data) {
+		return ajaxRequset({
+			url: '/Handler/SubmmitOrderHandler.ashx?action=UpdateUserInvoice',
+			data
+		}).then((res) => res)
+	},
+
+	
+
 };

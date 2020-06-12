@@ -695,27 +695,6 @@
 					"pathName": "packageB/pages/expressDetail/expressDetail",
 					"query": "orderId=202006116568924",
 					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/searchGoods/searchGoods",
-					"pathName": "pages/searchGoods/searchGoods",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "packageA/pages/sortDetail/sortDetail",
-					"pathName": "packageA/pages/sortDetail/sortDetail",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/confirmationOfOrder/confirmationOfOrder",
-					"pathName": "pages/confirmationOfOrder/confirmationOfOrder",
-					"query": "fromPage=signbuy&sku=530_0&buyAmount=1&groupId=         &IsFightGroup=undefined&prDid=530",
-					"scene": null
 				}
 			]
 		}
