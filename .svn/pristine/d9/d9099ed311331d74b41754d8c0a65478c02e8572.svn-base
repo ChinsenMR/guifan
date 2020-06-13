@@ -441,14 +441,14 @@
   <!-- 默认tab -->
   <view class='allBtnBox df ais' wx:if='{{isDefault}}'>
     共 {{goodsNum}} 件 合计: ￥{{goodsTotalPrice}}
-    <view class='surebtn df ais' bindtap='payModal' data-type="sub">确定订单</view>
+    <view class='surebtn df ais' bindtap='payModal'>确定订单</view>
   </view>
 
   <!-- 自定义tab -->
   <view class="c-tab da" wx:else>
     <text class="ct-num">共 {{goodsNum}} 件</text>
     <text class="ct-account flex">合计 : ￥{{goodsTotalPrice}}</text>
-    <text class="ct-btn" bindtap='payModal' data-type="sub">确定订单</text>
+    <text class="ct-btn" bindtap='payModal'>确定订单</text>
   </view>
 </view>
 
@@ -456,7 +456,7 @@
 <Coupon  coupons='{{couponList}}' id='coupon' bindselectedValue="getCouponData"/>
 
 <!-- 支付modal -->
-<view class='payModal' hidden='{{hiddenPay}}' bindtap='payModal' data-type="sub">
+<view class='payModal' hidden='{{hiddenPay}}' bindtap='payModal'>
   <view class='payModal-ul' catchtap='catchStop'>
     <view class='payModal-li df ais jct-between' bindtap='selectPay'>
       <view class='df ais payModal-liL'>

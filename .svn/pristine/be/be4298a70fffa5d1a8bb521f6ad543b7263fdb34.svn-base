@@ -232,8 +232,7 @@ Page({
       productSku,
       FightGroupId,
       tuxedo,
-      beforeComputedPrice,
-      IsUpdateGradeCondition
+      beforeComputedPrice
     } = this.data;
     wx.showLoading({
       title: '加载中...',
@@ -269,6 +268,7 @@ Page({
           goodsTotalPrice,
           CouponList,
           IsExistReferral,
+          IsUpdateGradeCondition,
           TaxRate,
           VATTaxRate,
           TotalPrice
@@ -349,7 +349,6 @@ Page({
 
   // 订单提交数据
   submitData(cannel) {
-    
     // wx.showLoading({
     //   title: "订单生成中~",
     //   mask: true,
@@ -359,16 +358,15 @@ Page({
     //   fail: () => {},
     //   complete: () => {}
     // });
-   
+
     let that = this;
-
-     if(that.data.checked_fp && that.data.invoiceType == '请选择发票类型'){
-      return wx.showToast({
-        icon: "none",
-        title: '请填写发票信息',
-      })
-     }
-
+    //  if(that.data.checked_is_link == false && that.data.invoiceType == '请选择发票类型'){
+    //   wx.showToast({
+    //     icon: "none",
+    //     title: '请填写发票信息',
+    //   })
+    //   return
+    //  }
     let {
       fromPage,
       sku,

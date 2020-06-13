@@ -17,8 +17,15 @@ Page({
 
   // 提交
   formSubmit: function (e) {
-    let valObj = e.detail.value;
-    console.log(valObj)
+    let form = e.detail.value;
+    console.log(form)
+    if(!form.userName){
+      return wx.showToast({title: '请输入用户名'});
+    }
+  if(!form.userPass){
+    return wx.showToast({title: '请输入密码'});
+  }
+    return
     bindAgent({
       Username: valObj.userName,//	是	string	代理账号
       Password: valObj.userPass //	是	string	代理密码

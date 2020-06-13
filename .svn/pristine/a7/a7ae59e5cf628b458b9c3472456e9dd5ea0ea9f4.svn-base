@@ -716,13 +716,6 @@
 					"pathName": "pages/confirmationOfOrder/confirmationOfOrder",
 					"query": "fromPage=signbuy&sku=530_0&buyAmount=1&groupId=         &IsFightGroup=undefined&prDid=530",
 					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "packageA/pages/associated/associated",
-					"pathName": "packageA/pages/associated/associated",
-					"query": "fromPage=signbuy&sku=530_0&buyAmount=1&groupId=         &IsFightGroup=undefined&prDid=530",
-					"scene": null
 				}
 			]
 		}
