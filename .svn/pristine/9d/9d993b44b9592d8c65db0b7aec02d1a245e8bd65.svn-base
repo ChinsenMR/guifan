@@ -22,9 +22,7 @@
 		<view class="at-header">请选择申请售后类型</view>
 		<van-radio-group value="{{ orderStatus }}" bind:change="onRadio">
 			<view class="da at-radio">
-				<van-radio wx:if="{{orderStatus == '2'}}" name="2" checked-color='#E5414A'>
-					仅退款
-				</van-radio>
+				<van-radio wx:if="{{orderStatus == '2'}}" name="2" checked-color='#E5414A'>仅退款</van-radio>
 				<van-radio wx:else name="3" checked-color='#E5414A'>退货退款</van-radio>
 			</view>
 		</van-radio-group>
@@ -58,17 +56,6 @@
 	<picker range="{{reasonArr}}" bindchange="onChange">
 		<view class="dbc reason-s">
 			<text>{{curReason? curReason : '请选择退货原因'}}</text>
-			<image class="arrowRight" src="{{imgUrl+'arrowRight.png'}}" mode="widthFix" />
-		</view>
-	</picker>
-	<picker
-	 range="{{refundType}}"
-	 bindchange="onChangeType"
-	 range-key="text"
-	 wx:if="{{orderStatus == 2}}"
-	>
-		<view class="dbc reason-s">
-			<text>{{refundTypeIndex != null ? refundType[refundTypeIndex].text : '请选择退款方式'}}</text>
 			<image class="arrowRight" src="{{imgUrl+'arrowRight.png'}}" mode="widthFix" />
 		</view>
 	</picker>

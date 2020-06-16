@@ -1,0 +1,61 @@
+<view id='box' wx:if="{{isEmpty}}">
+	<view class='addressListBox'>
+		<view class='addressList' wx:for="{{listData}}" wx:key="{{index}}">
+			<view
+			 class='addressListBox2'
+			 bindtap="clickSetDafaultCir"
+			 data-index="{{index}}"
+			 data-istop="1"
+			>
+				<view class='addressUserName'>
+					<view class='name'> {{item.ShipTo}}</view>
+					<view class='call'>{{item.CellPhone}}</view>
+				</view>
+				<view class='useraddressBox'>
+					<text class='province'>{{item.FullRegionName}}</text>
+					<!-- <text class='city'>{{item.city}}</text>
+                    <text class='area'>{{item.area}}</text> -->
+
+					{{item.Address}}
+				</view>
+			</view>
+			<view class='canStateBox'>
+				<image src='http://hmqy.oss-cn-hangzhou.aliyuncs.com/hmeshop_jxy/images/icon_seleted.png' wx:if="{{item.IsDefault}}" class='isdefault' />
+				<view
+				 class='setDafaultCir'
+				 bindtap='clickSetDafaultCir'
+				 data-index="{{index}}"
+				 wx:if="{{!item.IsDefault}}"
+				/>
+				<text class='defaultTip'>设为默认</text>
+				<image
+				 src='http://hmqy.oss-cn-hangzhou.aliyuncs.com/hmeshop_jxy/images/icon_bianji.png'
+				 class='bianji'
+				 catchtap='clickBianji'
+				 data-index="{{index}}"
+				/>
+				<image
+				 src='{{imgUrl+"lajitong.png"}}'
+				 class='deletedimg'
+				 catchtap='clickdel'
+				 data-index="{{index}}"
+				/>
+			</view>
+
+		</view>
+		<view class='dingqi' />
+	</view>
+	<view class='addBtn' bindtap='goadd'>添加新地址</view>
+</view>
+
+<view class='box2' wx:if="{{!isEmpty}}">
+	<view class='imgboxisEmpty'>
+		<image src='/images/icon_shouhuodizhi.png' />
+	</view>
+
+	<view class='emptyTip'>
+		暂无收货地址~
+	</view>
+	<view class='addNewAddressBtn' bindtap='goadd'> 新增收货人</view>
+</view>
+

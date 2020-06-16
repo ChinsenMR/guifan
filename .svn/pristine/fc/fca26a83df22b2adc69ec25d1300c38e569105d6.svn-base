@@ -36,8 +36,6 @@ Page({
       CellPhone: '',
     }, //收货人物流信息
     initData: {}, // 初始化售后的数据
-    refundType: [],
-    refundTypeIndex: null,
   },
 
   /**
@@ -91,10 +89,8 @@ Page({
       console.log(res);
       const {
         Message,
-        Status,
-        TypeList = []
+        Status
       } = res.data;
-
       if (Status == 'Faile') {
         wx.showToast({
           title: Message,
@@ -106,17 +102,7 @@ Page({
 
         return;
       }
-
-      const tempArr = [];
-      TypeList.forEach(item => {
-        tempArr.push({
-          value: item,
-          text: item == 1 ? '退到余额' : '原路返回'
-        })
-      })
-
       this.setData({
-        refundType: tempArr,
         initData: res.data,
       });
     });
@@ -127,11 +113,7 @@ Page({
       curReason: this.data.reasonArr[e.detail.value],
     });
   },
-  onChangeType(e) {
-    this.setData({
-      refundTypeIndex: e.detail.value,
-    });
-  },
+
   // input输入收货人物流信息
   onShipToInput(e) {
     let {
@@ -169,7 +151,7 @@ Page({
       count: this.data.count,
       remark: this.data.remark
     });
-
+  
   },
 
   // 提交
@@ -183,9 +165,7 @@ Page({
       voucherImg,
       orderStatus,
       orderInfo,
-      initData,
-      refundType,
-      refundTypeIndex
+      initData
     } = this.data;
     console.log(e);
     if (curReason == '') {
@@ -195,21 +175,12 @@ Page({
       });
     }
 
-
+    
     if (orderStatus == 2) {
-      if (!refundTypeIndex) {
-        return wx.showToast({
-          icon: 'none',
-          title: '请选择退款方式'
-        });
-      }
-      
-      const currentType = refundType[refundTypeIndex].value
-      
       applyRefund({
         OrderId: orderId, //	是	string	订单Id
         Remark: remark || '', //	否	string	备注文本
-        refundType: currentType, //	是	int	退款方式
+        refundType: initData.TypeList[0] || 1, //	是	int	退款方式
         RefundReason: curReason || '', //	是	string	退款原因
       }).then((res) => {
         // console.log("输出申请退款状态",res);
@@ -282,7 +253,7 @@ Page({
         wx.getFileSystemManager().readFile({
           filePath: res.tempFilePaths[0],
           encoding: 'base64',
-
+       
           success: (data) => {
             Uploadimgbybase64({
               baseStr: data.data,
