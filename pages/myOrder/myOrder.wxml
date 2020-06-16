@@ -1,86 +1,133 @@
 <wxs module="order">
-var isShow = function(){
+	var isShow = function(){
 
-}
+	}
 </wxs>
 <!-- 搜索框 -->
 <view class="order_search">
-  <view class="input_wrap">
-    <input type="text" value="{{searchVal}}" class="search_inp" placeholder="请输入搜索内容" bindinput="handleVal" />
-  </view>
-  <!-- <input  type="text" value="{{searchVal}}" class="search_inp"  placeholder="请输入搜索内容" bindinput="handleVal"/> -->
-  <view class="search_btn" bindtap="handleSearch">确定</view>
+	<view class="input_wrap">
+		<input
+		 type="text"
+		 value="{{searchVal}}"
+		 class="search_inp"
+		 placeholder="请输入搜索内容"
+		 bindinput="handleVal"
+		/>
+	</view>
+	<!-- <input  type="text" value="{{searchVal}}" class="search_inp"  placeholder="请输入搜索内容" bindinput="handleVal"/> -->
+	<view class="search_btn" bindtap="handleSearch">确定</view>
 </view>
-<van-tabs swipeable sticky bind:change='selectTabbar' active='{{activeItem}}'>
-  <van-tab wx:for='{{tabbar}}' wx:key="item" title="{{item}}">
-    <!-- 内容区 -->
-    <view class='content-ul' wx:if='{{list.length != 0}}'>
-      <view class='content-li' wx:for="{{list}}" wx:for-item="list" wx:key="index">
-        <view class='content-liH dbc' data-id='{{list.OrderId}}' bindtap='toOrderDetail'>
-          <text class='liH-L df ais'>{{list.ShipperName}}</text>
-          <!-- 订单号 -->
-          <text class='liH-L'>订单号:{{list.OrderId}}</text>
-          <text class='liH-R'>{{list.StatusText}}</text>
-        </view>
-        <view class='goodsList df ais-start' wx:for="{{list.LineItems}}" wx:for-item="glist" wx:key="index">
-          <image src='{{glist.Image}}' mode='aspectFill' data-id='{{list.OrderId}}' bindtap='toOrderDetail'></image>
-          <view class='glist-R flex'>
-            <view class='dbc to-line' data-id='{{list.OrderId}}' bindtap='toOrderDetail'>
-              {{glist.Name}}
-            </view>
-            <view class='dbc goodsSpecs' data-id='{{list.OrderId}}' bindtap='toOrderDetail'>
-              {{glist.SkuText}}
-            </view>
-            <view class='price dbc'>
-              <text data-id='{{list.OrderId}}' bindtap='toOrderDetail'>￥ {{glist.Price}}</text>
-              <view bindtap="goAfterSale" data-params="{{ {item: glist, orderId: list.OrderId, status: 3} }}" wx:if="{{glist.IsAllowReturn}}">
-                <button class="apply-aftersale">申请退货</button>
-              </view>
-              <view bindtap="seeAfterSaleDetail" data-params="{{ {type: 1, id: glist.ReturnInfo.ReturnId, orderId: list.OrderId, skuId: glist.ReturnInfo.SkuId} }}" wx:if="{{glist.IsShowReturn}}">
-                <button class="apply-aftersale">退货详情</button>
-              </view>
-              <text data-id='{{list.OrderId}}' bindtap='toOrderDetail'>
+<van-tabs
+ swipeable
+ sticky
+ bind:change='selectTabbar'
+ active='{{activeItem}}'
+>
+	<van-tab wx:for='{{tabbar}}' wx:key="item" title="{{item}}">
+		<!-- 内容区 -->
+		<view class='content-ul' wx:if='{{list.length != 0}}'>
+			<view
+			 class='content-li'
+			 wx:for="{{list}}"
+			 wx:for-item="list"
+			 wx:key="index"
+			>
+				<view class='content-liH dbc' data-id='{{list.OrderId}}' bindtap='toOrderDetail'>
+					<text class='liH-L df ais'>{{list.ShipperName}}</text>
+					<!-- 订单号 -->
+					<text class='liH-L'>订单号:{{list.OrderId}}</text>
+					<text class='liH-R'>{{list.StatusText}}</text>
+				</view>
+				<view
+				 class='goodsList df ais-start'
+				 wx:for="{{list.LineItems}}"
+				 wx:for-item="glist"
+				 wx:key="index"
+				>
+					<image
+					 src='{{glist.Image}}'
+					 mode='aspectFill'
+					 data-id='{{list.OrderId}}'
+					 bindtap='toOrderDetail'
+					/>
+					<view class='glist-R flex'>
+						<view class='dbc to-line' data-id='{{list.OrderId}}' bindtap='toOrderDetail'>
+							{{glist.Name}}
+						</view>
+						<view
+						 class='dbc goodsSpecs'
+						 data-id='{{list.OrderId}}'
+						 bindtap='toOrderDetail'
+						 hidden="{{!glist.SkuText}}}"
+						>
+							{{glist.SkuText || '无规格'}}
+						</view>
+						<view class='price dbc'>
+							<text data-id='{{list.OrderId}}' bindtap='toOrderDetail'>￥ {{glist.Price}}</text>
+							<view bindtap="goAfterSale" data-params="{{ {item: glist, orderId: list.OrderId, status: 3} }}" wx:if="{{glist.IsAllowReturn}}">
+								<button class="apply-aftersale">申请退货</button>
+							</view>
+							<view bindtap="seeAfterSaleDetail" data-params="{{ {type: 1, id: glist.ReturnInfo.ReturnId, orderId: list.OrderId, skuId: glist.ReturnInfo.SkuId} }}" wx:if="{{glist.IsShowReturn}}">
+								<button class="apply-aftersale">退货详情</button>
+							</view>
+							<text data-id='{{list.OrderId}}' bindtap='toOrderDetail'>
                 x {{glist.ShipmentQuantity}}
               </text>
-            </view>
-          </view>
-        </view>
-        <view class='totalPrice da-e'>
-          <text>共 {{list.Quantity}} 件商品</text>
-          <text>合计：￥ {{list.Amount}}</text>
-        </view>
-        <!-- 根据订单状态 显示 相应的底部 按钮 -->
-        <view class='o-footer da-e'>
-          <view class="da" wx:if='{{list.Status == 1}}'>
-            <button class='oBtn-r' data-id='{{list.OrderId}}' bindtap='cancelOrd'>取消订单</button>
-            <button class='oBtn-b' data-id='{{list.OrderId}}' bindtap='pay'>去付款</button>
-          </view>
-          <!-- <navigator class="oBtn-r" url="/pages/newAddress/newAddress?orderid={{list.OrderId}}" wx:if='{{list.Status == 2}}'>修改地址</navigator> -->
-          <view class="oBtn-r" bindtap="goAfterSale" data-params="{{ {item: list, status: 2, orderId: list.OrderId} }}" wx:if="{{list.IsAllowRefund}}">
-            申请退款
-          </view>
-          <view class="oBtn-r" bindtap="seeAfterSaleDetail" data-params="{{ {type: 2, id: list.RefundId, orderId: list.OrderId} }}" wx:if='{{list.IsShowRefund}}'>
-            退款详情
-          </view>
-          <view class="da" wx:if='{{list.Status == 3}}'>
-            <!-- <navigator class="oBtn-b" url="/packageA/pages/Logistics/Logistics?id={{list.OrderId}}&Items={{list.LineItems}}">查看物流</navigator> -->
-            <view class="oBtn-b" bindtap="seeExpressStep" data-orderId="{{list.OrderId}}" >
-              查看物流
-            </view>
-            <button class='oBtn-r' data-id="{{list.OrderId}}" bindtap="Onsureshoping" wx:if="{{list.Status == 3}}">
-              确认收货
-            </button>
-          </view>
-          <navigator class="oBtn-r" url="/packageA/pages/evaluate/evaluate?id={{list.OrderId}}" wx:if='{{list.Status == 5}}'>
-            去评价
-          </navigator>
-        </view>
-      </view>
-    </view>
-    <!-- 无数据 -->
-    <view class='empty ddc-v' wx:if='{{list.length == 0 && isEmpty}}'>
-      <image src='{{imgUrl+"icon_zanwudingdan@2x.png"}}' mode='widthFix'></image>
-      <view>暂无订单～</view>
-    </view>
-  </van-tab>
+						</view>
+					</view>
+				</view>
+				<view class='totalPrice da-e'>
+					<text>共 {{list.Quantity}} 件商品</text>
+					<text>合计：￥ {{list.Amount}}</text>
+				</view>
+				<!-- 根据订单状态 显示 相应的底部 按钮 -->
+				<view class='o-footer da-e'>
+					<view class="da" wx:if='{{list.Status == 1}}'>
+						<button class='oBtn-r' data-id='{{list.OrderId}}' bindtap='cancelOrd'>取消订单</button>
+						<button class='oBtn-b' data-id='{{list.OrderId}}' bindtap='pay'>去付款</button>
+					</view>
+					<!-- <navigator class="oBtn-r" url="/pages/newAddress/newAddress?orderid={{list.OrderId}}" wx:if='{{list.Status == 2}}'>修改地址</navigator> -->
+					<view
+					 class="oBtn-r"
+					 bindtap="goAfterSale"
+					 data-params="{{ {item: list, status: 2, orderId: list.OrderId} }}"
+					 wx:if="{{list.IsAllowRefund}}"
+					>
+						申请退款
+					</view>
+					<view
+					 class="oBtn-r"
+					 bindtap="seeAfterSaleDetail"
+					 data-params="{{ {type: 2, id: list.RefundId, orderId: list.OrderId} }}"
+					 wx:if='{{list.IsShowRefund}}'
+					>
+						退款详情
+					</view>
+					<view class="da" wx:if='{{list.Status == 3}}'>
+						<!-- <navigator class="oBtn-b" url="/packageA/pages/Logistics/Logistics?id={{list.OrderId}}&Items={{list.LineItems}}">查看物流</navigator> -->
+						<view class="oBtn-b" bindtap="seeExpressStep" data-orderId="{{list.OrderId}}">
+							查看物流
+						</view>
+						<button
+						 class='oBtn-r'
+						 data-id="{{list.OrderId}}"
+						 bindtap="Onsureshoping"
+						 wx:if="{{list.Status == 3}}"
+						>
+							确认收货
+						</button>
+					</view>
+					<navigator class="oBtn-r" url="/packageA/pages/evaluate/evaluate?id={{list.OrderId}}" wx:if='{{list.Status == 5}}'>
+						去评价
+					</navigator>
+				</view>
+			</view>
+		</view>
+		<!-- 无数据 -->
+		<view class='empty ddc-v' wx:if='{{list.length == 0 && isEmpty}}'>
+			<image src='{{imgUrl+"icon_zanwudingdan@2x.png"}}' mode='widthFix' />
+			<view>暂无订单～</view>
+		</view>
+	</van-tab>
 </van-tabs>
+

@@ -58,7 +58,7 @@ Component({
           })
 
         }
-      })
+    })
     },
 
     Toaddress() {

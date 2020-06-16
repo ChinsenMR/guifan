@@ -334,7 +334,15 @@ Page({
 
   //自定义返回上一级
   navigateBack: function () {
-    wx.navigateBack();
+    const pages =  getCurrentPages();
+    if(pages.length > 1){
+      wx.navigateBack();
+    }else{
+      wx.redirectTo({
+        url: '/pages/home/home',
+      })
+    }
+   
   },
 
   //初始化页面数据

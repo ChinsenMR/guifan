@@ -807,6 +807,13 @@
 					"pathName": "packageA/pages/applyRefunds/applyRefunds",
 					"query": "orderId=202006169891464&status=2",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/member/member",
+					"pathName": "pages/goodsDetail/goodsDetail",
+					"query": "scene=prDid%3D534%26agentId%3D2995",
+					"scene": null
 				}
 			]
 		}
