@@ -726,86 +726,72 @@
 				},
 				{
 					"id": -1,
+					"name": "pages/confirmationOfOrder/confirmationOfOrder",
+					"pathName": "pages/confirmationOfOrder/confirmationOfOrder",
+					"query": "fromPage=signbuy&sku=530_0&buyAmount=1&groupId=         &IsFightGroup=undefined&prDid=530",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/confirmationOfOrder/confirmationOfOrder",
+					"pathName": "pages/confirmationOfOrder/confirmationOfOrder",
+					"query": "fromPage=signbuy&sku=530_0&buyAmount=1&groupId=         &IsFightGroup=undefined&prDid=530",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/confirmationOfOrder/confirmationOfOrder",
+					"pathName": "pages/confirmationOfOrder/confirmationOfOrder",
+					"query": "fromPage=signbuy&sku=529_299&buyAmount=1&groupId=         &IsFightGroup=undefined&prDid=529",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/confirmationOfOrder/confirmationOfOrder",
+					"pathName": "pages/confirmationOfOrder/confirmationOfOrder",
+					"query": "fromPage=signbuy&sku=537_0&buyAmount=1&groupId=         &IsFightGroup=undefined&prDid=537",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/moduleHome/moduleHome",
+					"pathName": "pages/home/home",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/moduleHome/moduleHome",
+					"pathName": "pages/home/home?scene=11",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 102,
 					"name": "pages/member/member",
-					"pathName": "pages/goodsDetail/goodsDetail",
-					"query": "scene=prDid%3D534%26agentId%3D2995",
+					"pathName": "packageA/pages/applyAgent/applyAgent",
+					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "pages/goodsDetail/goodsDetail",
 					"pathName": "pages/goodsDetail/goodsDetail",
-					"query": "scene=prDid%3D534%26agentId%3D2995",
+					"query": "prDid=539",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 104,
 					"name": "pages/goodsDetail/goodsDetail",
 					"pathName": "pages/goodsDetail/goodsDetail",
-					"query": "scene=prDid%3D534%26agentId%3D2995",
+					"query": "prDid=534&scene=11",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "pages/member/member",
-					"pathName": "pages/home/home",
-					"query": "scene=agentId%3D",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/home/home",
-					"pathName": "pages/home/home",
-					"query": "scene=agentId%3D",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/moduleHome/moduleHome",
-					"pathName": "pages/home/home",
-					"query": "scene=agentId%3D3105",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/moduleHome/moduleHome",
-					"pathName": "pages/moduleHome/moduleHome",
-					"query": "scene=agentId%3D3105",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/moduleHome/moduleHome",
-					"pathName": "pages/home/home",
-					"query": "scene=agentId%3D3105",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/goodsDetail/goodsDetail",
-					"pathName": "pages/goodsDetail/goodsDetail",
-					"query": "scene=agentId%3D3105",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/goodsDetail/goodsDetail",
-					"pathName": "pages/goodsDetail/goodsDetail",
-					"query": "scene=prDid%3D534%26agentId%3D2995",
-					"scene": null
-				},
-				{
-					"id": 106,
-					"name": "售后",
-					"pathName": "packageA/pages/applyRefunds/applyRefunds",
-					"query": "scene=prDid%3D534%26agentId%3D2995",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "packageA/pages/applyRefunds/applyRefunds",
-					"pathName": "packageA/pages/applyRefunds/applyRefunds",
-					"query": "orderId=202006169891464&status=2",
+					"name": "pages/confirmationOfOrder/confirmationOfOrder",
+					"pathName": "pages/confirmationOfOrder/confirmationOfOrder",
+					"query": "fromPage=signbuy&sku=539_298&buyAmount=1&groupId=         &IsFightGroup=undefined&prDid=539",
 					"scene": null
 				}
 			]

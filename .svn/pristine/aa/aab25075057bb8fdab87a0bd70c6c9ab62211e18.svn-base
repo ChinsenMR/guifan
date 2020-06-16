@@ -174,7 +174,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.data.finshedOrder) {
+    if (!this.data.finshedOrder) {
       wx.showModal({
         content: '订单已支付',
         showCancel: false,
@@ -201,7 +201,7 @@ Page({
   //打开地址页面
   goaddress: function () {
     wx.navigateTo({
-      url: '../receivingAddress/receivingAddress?fromType=confirmOrder',
+      url: '../receivingAddress/receivingAddress',
     })
   },
 
@@ -361,7 +361,7 @@ Page({
         console.log(needUpLevel, IsUpdateGradeCondition, this)
 
 
-        // // needUpLevel 为 true 是否满足去申请代理
+        // needUpLevel 为 true 是否满足去申请代理
         if (needUpLevel && IsExistReferral) {
           wx.showModal({
             content: '需要升级代理才能购买本产品',
@@ -443,8 +443,7 @@ Page({
       goodsTotalPrice,
       ApplyId,
       confirmIng,
-      finshedOrder,
-      needUpLevel
+      finshedOrder
     } = this.data;
 
 
@@ -453,12 +452,7 @@ Page({
       mask: true
     })
 
-    if(!ApplyId && needUpLevel){
-      return wx.showToast({
-        icon: "none",
-        title: '需要升级代理才能购买本产品',
-      })
-    }
+
 
     if (checked_fp && invoiceType == '请选择发票类型') {
       return wx.showToast({

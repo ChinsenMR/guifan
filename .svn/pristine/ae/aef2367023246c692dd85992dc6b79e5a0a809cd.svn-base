@@ -6,7 +6,9 @@ import {
   login,
   bindBaseAgent
 } from '../../utils/requestApi.js'
-
+import {
+  bindingShare
+} from '../../utils/util.js'
 import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
 Page({
 
@@ -67,18 +69,6 @@ Page({
    */
   onLoad: function (opt) {
 
-    if (opt.scene) {
-      const scene = decodeURIComponent(opt.scene);
-      opt.agentId = app.utils.getQueryVariable(scene, 'agentId')
-      opt.prDid = app.utils.getQueryVariable(scene, 'prDid');
-      this.bindBaseAgent(opt)
-
-      /* 绑定代理全部放这里面 */
-
-    }
-
-
-
 
     const {
       UserId
@@ -90,6 +80,14 @@ Page({
       pid: opt.prDid,
       ProductId: opt.prDid
     })
+    // var scene = decodeURIComponent(opt.scene).split('=')[1]
+    //获取openid
+    let openid = wx.getStorageSync('openid');
+    var scene = decodeURIComponent(opt.scene);
+    // console.log("输出二维码解析值", opt.scene);
+
+
+    console.log(opt, '>>>>>>>>>>')
 
 
     if (!opt.scene) {
@@ -97,6 +95,9 @@ Page({
       this.getMessageData(opt.prDid)
 
     }
+
+    /* 绑定代理全部放这里面 */
+    this.bindBaseAgent(opt)
 
 
 
@@ -139,16 +140,15 @@ Page({
   },
   /* 全局方法，绑定代理 */
   bindBaseAgent(opt) {
-    
-    app.globalData.AGENT_ID = opt.agentId;
+    app.globalData.AGENT_ID = opt.scene || opt.agentId;
 
+    console.log(app.globalData.AGENT_ID, '<><><><><><><')
     /* 如果有代理ID那么就绑定 */
     if (app.globalData.AGENT_ID && !app.globalData.isBindAgent) {
       console.log(app.globalData.AGENT_ID)
       bindBaseAgent({
         ReferralUserId: app.globalData.AGENT_ID
       }).then(res => {
-        console.log(res, '绑定上级关系')
         const {
           Code,
           Msg
@@ -162,6 +162,9 @@ Page({
           content: Msg,
           showCancel: true,
         })
+
+
+        console.log(res, '绑定代理吗');
       })
 
     }

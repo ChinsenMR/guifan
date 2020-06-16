@@ -1,6 +1,5 @@
 import {
-  subBindTemReferral,
-  bindBaseAgent
+  subBindTemReferral
 } from '../../utils/requestApi';
 const app = getApp();
 Page({
@@ -62,7 +61,6 @@ Page({
           let cookie = res.data.Cookie
           app.data.cookie = res.data.Cookie
           wx.setStorageSync('cookie', res.data.Cookie)
-          wx.setStorageSync('USER_ID', res.data.UserId)
           this.setData({
             cookie,
             userInfo
@@ -91,12 +89,7 @@ Page({
                   title: '绑定上级关系',
                   content: Msg,
                   showCancel: true,
-                  success: res => {
-                    wx.navigateBack()
-                  }
                 })
-              } else {
-                wx.navigateBack()
               }
             })
 

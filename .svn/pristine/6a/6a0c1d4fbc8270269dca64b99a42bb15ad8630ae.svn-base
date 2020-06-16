@@ -689,7 +689,7 @@ Page({
 
         let link = params.link
         let prDid = link.split('productId=')[1];
-        console.log(params)
+
         wx.navigateTo({
           url: `/pages/goodsDetail/goodsDetail?prDid=${prDid}`,
         })

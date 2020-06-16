@@ -1,11 +1,9 @@
 import verify from './utils/verify';
-import utils from './utils/util';
 // 底部
 var template = require('template/template.js');
 
 App({
   verify,
-  utils,
   onLaunch: function () {
     this.getdefaultmode();
     let that = this;
@@ -182,8 +180,8 @@ App({
 
 
   globalData: {
-    AGENT_ID: null,
     isBindAgent: false,
+    AGENT_ID: '',
     template: template,
   },
 
@@ -206,7 +204,7 @@ App({
     //url: 'https://dlyl.hmeshop.cn'
 
 
-    //  url:'http://192.168.3.86:8088' // 本地
+     //url:'http://192.168.3.86:8085' // 本地
     // 线上
     url: 'https://foreverenjoy.guifang.net.cn'
   }

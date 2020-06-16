@@ -11,12 +11,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imgUrl:app.data.imgurl,
+    imgUrl: app.data.imgurl,
     delBtnWidth: 180,
     isEmpty: false,
     listData: [],
     list: [],
-    startX: ""
+    startX: "",
+    params: {},
   },
   initEleWidth() {
     var delBtnWidth = this.getEleWidth(this.data.delBtnWidth);
@@ -25,7 +26,7 @@ Page({
       delBtnWidth: delBtnWidth
     });
   },
-  delItem: function(e) {
+  delItem: function (e) {
     //获取列表中要删除项的下标
     var index = e.currentTarget.dataset.index;
     console.log(index)
@@ -37,7 +38,7 @@ Page({
       list: list
     });
   },
-  getEleWidth: function(w) {
+  getEleWidth: function (w) {
     var real = 0;
     try {
       var res = wx.getSystemInfoSync().windowWidth; //以宽度750px设计稿做宽度的自适应
@@ -49,7 +50,7 @@ Page({
       // Do something when catch error
     }
   },
-  touchS: function(e) {
+  touchS: function (e) {
     if (e.touches.length == 1) {
       // console.log(e.touches[0].clientX)
       this.setData({
@@ -58,7 +59,7 @@ Page({
       });
     }
   },
-  touchM: function(e) {
+  touchM: function (e) {
     if (e.touches.length == 1) {
       //手指移动时水平方向位置
       // console.log(e.touches[0].clientX)
@@ -86,7 +87,7 @@ Page({
       });
     }
   },
-  touchE: function(e) {
+  touchE: function (e) {
     if (e.changedTouches.length == 1) {
       //手指移动结束后水平位置
       var endX = e.changedTouches[0].clientX;
@@ -105,7 +106,7 @@ Page({
       });
     }
   },
-  goadd: function() {
+  goadd: function () {
     console.log('添加收货地址')
     wx.removeStorage({
       key: 'address',
@@ -114,11 +115,11 @@ Page({
       }
     })
 
-    wx.navigateTo({    
+    wx.navigateTo({
       url: '../../packageA/pages/newAddress/newAddress',
     })
   },
-  clickEdit: function(e) {
+  clickEdit: function (e) {
     console.log(e.currentTarget.dataset.index, '取下标取数据')
   },
   clickBianji(e) { //点击编辑
@@ -150,8 +151,8 @@ Page({
           icon: 'none',
           mask: true,
           duration: 2000,
-          success: function() {
-            setTimeout(function() {
+          success: function () {
+            setTimeout(function () {
               that.getData()
             }, 2000)
           }
@@ -162,8 +163,8 @@ Page({
           icon: 'none',
           mask: true,
           duration: 2000,
-          success: function() {
-            setTimeout(function() {
+          success: function () {
+            setTimeout(function () {
               that.getData()
             }, 2000)
           }
@@ -175,6 +176,10 @@ Page({
   },
   clickSetDafaultCir(e) {
     console.log(this.data.listData[e.currentTarget.dataset.index], '设置默认取下标取值,做请求')
+
+    if (!this.data.params.fromType && e.currentTarget.dataset.istop) {
+      return
+    }
     wx.showLoading({
       title: '设置默认地址中',
     })
@@ -192,13 +197,13 @@ Page({
           icon: 'none',
           mask: true,
           duration: 2000,
-          success: function() {
-            setTimeout(function() {
-              that.getData()
+          success: function () {
+             that.getData()
+             if (that.data.params.fromType) {
               wx.navigateBack({
-                delta:1
-              })  
-            }, 2000)
+                delta: 1
+              })
+            }
           }
         })
       } else {
@@ -207,8 +212,8 @@ Page({
           icon: 'none',
           mask: true,
           duration: 2000,
-          success: function() {
-            setTimeout(function() {
+          success: function () {
+            setTimeout(function () {
               that.getData()
             }, 2000)
           }
@@ -249,56 +254,59 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
+    this.setData({
+      params: options
+    })
     this.initEleWidth();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     this.getData() //获取列表数据
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

@@ -1,7 +1,6 @@
 const app = getApp();
 import {
-  payOrder,
-  login
+  payOrder, login
 } from '../utils/requestApi.js';
 
 module.exports = {
@@ -87,7 +86,7 @@ module.exports = {
    *  
    */
   // 关键字搜索功能
-  goodsSearch: function (opt) {
+  goodsSearch: function(opt) {
     let searchResult = [];
     opt.data.forEach((item, index) => {
       if (item[opt.keyName].indexOf(opt.searchKey) != -1) searchResult.push(item);
@@ -97,7 +96,7 @@ module.exports = {
   },
 
   //跳转登录页面
-  toLoginPage: function () {
+  toLoginPage: function() {
     wx.reLaunch({
       url: 'pages/authorizationLogin/authorizationLogin',
     })
@@ -105,17 +104,20 @@ module.exports = {
 
   // 支付订单
   // toPay: function (id, callback, failback) {
-  toPay: function (id, callback) {
+  toPay: function(id, callback) {
+    
     // wx.showLoading({
     //   title: '加载中...',
     // })
-    console.log("支付id值", id);
+    
+    console.log("支付id值",id);
     payOrder({
       orderId: id
     }).then(res => {
-      console.log("zhifu", res)
+      console.log("zhifu",res)
       if (res.data.Status == "Success") {
-        // wx.hideLoading();
+        
+        wx.hideLoading();
         let {
           prepayId,
           nonceStr,
@@ -146,13 +148,13 @@ module.exports = {
                   // wx.redirectTo({
                   //   url: '/pages/orderDetail/orderDetail?orderId='+ id,
                   // });
-
+                    
                 }, 1000);
               },
             });
           }
         })
-      } else {
+      }else{
         // wx.hideLoading();
         wx.showModal({
           title: res.data.Message,
@@ -165,36 +167,24 @@ module.exports = {
               wx.navigateBack({
                 delta: 1
               });
-
+                
             }
           },
         })
-
+          
       }
     })
   },
 
   //绑定分享的方法
-  bindingShare() {
+  bindingShare(){
     login({
-      openId: app.data.openid, //		openId
-      openType: 'hmeshop.plugins.openid.wxapplet', //小程序（hmeshop.plugins.openid.wxapplet）
-      referralUserId: app.data.referralUserId //否	int	推荐人ID(注册时)
-    }).then(res => {
+      openId: app.data.openid,//		openId
+      openType:'hmeshop.plugins.openid.wxapplet',	//小程序（hmeshop.plugins.openid.wxapplet）
+      referralUserId: app.data.referralUserId	//否	int	推荐人ID(注册时)
+    }).then(res=>{
       if (res.data.Status == 'Success') app.data.referralUserId = null
     })
   },
-  /* 获取参数  */
-  getQueryVariable(url,variable) {
-    var query = url;
-    var vars = query.split("&");
-    for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split("=");
-      if (pair[0] == variable) {
-        return pair[1];
-      }
-    }
-    return (false);
-  }
 
 }

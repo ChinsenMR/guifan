@@ -90,7 +90,6 @@ Page({
       bindBaseAgent({
         ReferralUserId: app.globalData.AGENT_ID
       }).then(res => {
-        console.log(res,'绑定代理')
         const {
           Code,
           Msg

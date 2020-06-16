@@ -61,7 +61,7 @@ Page({
           let userInfo = res.data.Data;
           let cookie = res.data.Cookie
           app.data.cookie = res.data.Cookie
-          wx.setStorageSync('cookie', res.data.Cookie)
+          wx.setStorageSync('cookie', res.data.Cookie);
           wx.setStorageSync('USER_ID', res.data.UserId)
           this.setData({
             cookie,
@@ -73,10 +73,8 @@ Page({
             title: '登录成功'
           })
 
-
-          /* 如果有代理ID那么就绑定 */
+          /* 如果还没绑定代理，并且存储了代理ID，那么绑定了代理再跳转 */
           if (app.globalData.AGENT_ID && !app.globalData.isBindAgent) {
-
             bindBaseAgent({
               ReferralUserId: app.globalData.AGENT_ID
             }).then(res => {
@@ -84,25 +82,32 @@ Page({
                 Code,
                 Msg
               } = res.data;
-
+              if (Code == 0 || Code == -99) return
               if (Code == 1) {
-                app.globalData.isBindAgent = true;
-                wx.showModal({
-                  title: '绑定上级关系',
-                  content: Msg,
-                  showCancel: true,
-                  success: res => {
-                    wx.navigateBack()
-                  }
-                })
-              } else {
-                wx.navigateBack()
+                app.globalData.isBindAgent = true
               }
-            })
 
+              wx.showModal({
+                title: '绑定上级关系',
+                content: Msg,
+                showCancel: true,
+                success: res => {
+                  setTimeout(() => {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  }, 1000)
+                }
+              })
+            })
           } else {
-            wx.navigateBack()
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 1000)
           }
+
 
         }
       }

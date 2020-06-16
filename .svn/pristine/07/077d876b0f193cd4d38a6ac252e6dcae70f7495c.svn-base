@@ -151,7 +151,6 @@ Page({
       count: this.data.count,
       remark: this.data.remark
     });
-  
   },
 
   // 提交
@@ -175,7 +174,6 @@ Page({
       });
     }
 
-    
     if (orderStatus == 2) {
       applyRefund({
         OrderId: orderId, //	是	string	订单Id
@@ -220,7 +218,6 @@ Page({
         orderId: orderId,
         skuId: orderInfo[0].SkuId,
         Quantity: count,
-        Remark: remark || '', //	否	string	备注文本
         RefundReason: curReason,
         afterSaleType: orderStatus == 2 ? 0 : 1,
         UserCredentials: voucherImg.join(','),

@@ -1,0 +1,487 @@
+<view id='box'>
+  <!-- 收货地址 -->
+  <view class='addressBox' bindtap='goaddress'>
+    <image src='{{imgurl + "icon_address@2x.png"}}' class='dingwei' mode='widthFix'></image>
+    <view class='addressTip'>
+      <view class='addresstipone' wx:if="{{defaultAddressData=='['}}">请选择一个收货地址</view>
+      <view wx:else>
+        <view class='userNameBox'>
+          <view class='userName'>{{defaultAddressData.ShipTo}}</view>
+          <view class='userPhone'> {{defaultAddressData.CellPhone}} </view>
+        </view>
+        <view class='address'>
+          {{defaultAddressData.FullRegionName}} {{defaultAddressData.Address}}
+        </view>
+      </view>
+    </view>
+    <view class='addressRight'>
+      <view class='lineOne'></view>
+      <view class='lineTwo'></view>
+    </view>
+  </view>
+
+  <!-- 店铺 -->
+  <view class='shopBox' wx:if="{{orderInfo}}">
+    <view class='shopTitle'>
+      <image src='{{item.logo}}' class='shoplogo'></image>
+      <view class='shopName'>{{orderInfo.StoreName}}</view>
+    </view>
+    <view class='shopGoodBox'>
+
+      <!-- 商品列表 -->
+      <view class='shopGoodListBox' wx:for='{{orderInfo}}' wx:key="index">
+        <image src='{{item.ThumbnailUrl100}}' class='goodImg' mode='aspectFill'></image>
+        <view class='goodmsgBox'>
+          <view class='goodTip'>{{item.Name}}</view>
+          <view class='goodSizeBox'>{{item.SkuContent}}</view>
+          <view class='unitPriceBox'>
+            <view class='unitPrice'>￥{{item.AdjustedPrice}}</view>
+            <view class='goodnumber'>X {{item.Quantity}}</view>
+          </view>
+        </view>
+      </view>
+      
+      <!--
+      
+         <picker range='{{express}}' bindchange='selectExpress'>
+        <view class='df ais jct-between attrList'>
+          <view>配送方式</view>
+          <view class='df ais'>
+            <text class='attrList-R'>{{expressVal}}</text>
+            <image src='{{imgurl+"more_2@2x.png"}}' mode='widthFix'></image>
+          </view>
+        </view>
+      </picker>
+      
+      --->
+
+      <view class='df ais jct-between attrList' wx:if="{{couponList.length!=0}}"  bindtap='getCoupon'>
+        <view>店铺优惠</view>
+        <view class='df ais'>
+          <text class='attrList-R' wx:if="{{!couponData.name}}">请选择优惠券</text>
+          <text class="attrList-R" wx:else>{{couponData.name}}</text>
+          <!-- <text class='attrList-R' wx:if="{{SelectCoupons}}">请选择优惠券</text>
+          <text class='attrList-R' wx:else>{{优惠卷名字}}</text> -->
+          <image src='{{imgurl+"more_2@2x.png"}}' mode='widthFix'></image>
+        </view>
+      </view>
+      <wxs module="balance">
+        var totalBalance = function(goodsTotalPrice, balance){
+          var num = 0;
+          if(balance > goodsTotalPrice){
+            num = goodsTotalPrice;
+          }else{
+            goodsTotalPrice - balance
+          }
+          return num
+        }
+        module.exports.totalBalance = totalBalance
+      </wxs>
+      <!-- 余额抵扣 -->
+      <view class="balance_wrap df ais jct-between attrList">
+        <view>余额抵扣</view>
+        <view wx:if="{{!deduction}}" class="balance_price1">可用{{Balance}}元</view>
+        <!-- ,使用{{balance.totalBalance(beforeComputedPrice, Balance)}}元 -->
+        <view wx:else class="balance_price">共{{Balance}}元</view>
+        <switch bindchange="switchChange"  disabled="{{Balance == 0}}"/>
+      </view>
+      <!-- 上门自提 -->
+      <!-- <view class="doorTo df ais jct-between attrList">
+        <view>上门自提</view>
+        <switch bindchange="doorTo"/>
+      </view> -->
+      <!-- 运费 -->
+      <view class="yunfei df ais jct-between attrList" wx:if="{{orderStatus}}">
+        <view>自提信息</view>
+        <!-- <view>{{OrderFreight}}元</view> -->
+      </view>
+      <view class="yunfei df ais jct-between attrList" wx:if="{{!orderStatus}}">
+          <view>运费</view>
+          <view>{{OrderFreight}}元</view>
+      </view>
+
+      <!--新增代码2020/6/1 pzk  送货时间--->
+      <view class="ship_todate">
+        <view class="title">
+          送货时间
+        </view>
+        <view class="ship_list">
+            <view class="{{activeStyle == 0?'active':''}}" bindtap="activeSip"  data-index="0" data-text="任意时间">
+              任意时间
+            </view>
+             <view class="{{activeStyle == 1?'active':''}}" bindtap="activeSip" data-index="1" data-text="工作日">
+              工作日
+            </view>
+            <view class="{{activeStyle == 2?'active':''}}" bindtap="activeSip"  data-index="2"  data-text="节假日">
+              节假日
+            </view> 
+        </view>
+            
+      </view>
+        
+
+      <!-- 新增代码 2020/5/28 pzk -->
+      <view class="invoice">
+        <view class="invoice_title">
+          <view>
+            索取发票
+          </view>
+          <view wx:if="{{invoiceType == '个人电子普通发票' || invoiceType == '单位电子普通发票'}}">
+          
+             (税率 {{TaxRate}} %) 
+          </view> 
+           <view wx:elif="{{invoiceType == '增值税发票'}}">
+             (税率  {{VATTaxRate}}  %) 
+          </view> 
+        </view>
+          
+        <van-switch 
+          checked="{{ checked_fp }}"
+          active-color="#ff5722"
+          bind:change="onChange"
+          size="24px" 
+        />
+      </view>
+
+      <view hidden="{{checked_is_link}}" >
+         <van-cell title="发票抬头类型" is-link bind:click="showPopup" value="{{invoiceType}}" />
+      </view>
+          
+      <!-- 弹出层，选择发票类型-->
+      <van-popup show="{{ show }}">
+        <!-- tab 标签切换-->
+        <view class="tabs_invoice">
+            <van-tabs  type="card" bind:click="onClick" active="{{ active1 }}" data-indexs="{{active1}}" >
+              <van-tab title="电子发票" name="电子发票">
+                  <view class="invoice_type">
+                    <view>
+                      发票抬头
+                    </view>
+                    <van-radio-group class="custom-class" value="{{ radio }}" bind:change="onChangRadio">
+                      <van-radio name="person" checked-color="#ff5722">个人</van-radio>
+                      <van-radio name="conpany" checked-color="#ff5722">单位</van-radio>
+                    </van-radio-group> 
+                  </view>
+                    <view wx:if="{{ radio === 'person' }}" class="">
+                        <form bindsubmit="selectInvoiceType"  bindreset="formReset">
+                          <view class="invoice_info">
+                          <van-cell-group>
+                              <van-field
+                                
+                                value="{{personArr[0].ReceivePhone?personArr[0].ReceivePhone:''}}"
+                                name="ReceivePhone"
+                                required
+                                clearable
+                                label="收票人手机"
+                                placeholder="请输入收票人手机"
+                                border="{{ false }}"
+                              />
+                              <van-field
+                                value="{{personArr[0].ReceiveEmail?personArr[0].ReceiveEmail:''}}"
+                                name="ReceiveEmail"
+                                clearable
+                                label="收票人邮箱"
+                                placeholder="请输入收票人邮箱"
+                                required
+                                border="{{ false }}"
+                              />
+                          </van-cell-group>
+                          <input name="Id" value="{{personArr[0].Id?personArr[0].Id:'0'}}" hidden/>
+                          <input name="InvoiceType" value="{{personArr[0].InvoiceType?personArr[0].InvoiceType:2}}" hidden/>
+                          <input name="InvoiceTitle" value="{{personArr[0].InvoiceTitle?personArr[0].InvoiceTitle:'个人'}}" hidden/>
+                          <input name="InvoiceTaxpayerNumber" value="{{personArr[0].InvoiceTaxpayerNumber?personArr[0].InvoiceTaxpayerNumber:''}}" hidden/>
+                          <input name="OpenBank" value="{{personArr[0].OpenBank?personArr[0].OpenBank:''}}" hidden/>
+                          <input name="BankAccount" value="{{personArr[0].BankAccount?personArr[0].BankAccount:''}}" hidden/>
+                          <input name="RegisterAddress" value="{{personArr[0].RegisterAddress?personArr[0].RegisterAddress:''}}" hidden/>
+                          <input name="RegisterTel" value="{{personArr[0].RegisterTel?personArr[0].RegisterTel:''}}" hidden/>
+                          <input name="ReceiveName" value="{{personArr[0].ReceiveName?personArr[0].ReceiveName:''}}" hidden/>
+                          <input name="ReceiveRegionName" value="{{personArr[0].ReceiveRegionName?personArr[0].ReceiveRegionName:''}}" hidden/>
+                          <input name="ReceiveAddress" value="{{personArr[0].ReceiveAddress?personArr[0].ReceiveAddress:''}}" hidden/>
+                        </view>
+                          <view class="confirm_btn">
+                            <button form-type="submit"  class="custom-class submit">确定</button>
+                            <button form-type="reset" bindtap="changecancel"  class="custom-class reset">取消</button>
+                          </view>
+                        </form>
+                    </view>
+                      
+                    <view wx:if="{{ radio === 'conpany' }}" class="">
+                      <form bindsubmit="selectInvoiceType" bindreset="formReset">
+                         <view class="company_invouce">
+                          <van-cell-group>
+                            <van-field
+                              value="{{ companyArr[0].InvoiceTitle ?companyArr[0].InvoiceTitle:'' }}"
+                              name="InvoiceTitle"
+                              required
+                              clearable
+                              label="单位名称"
+                              placeholder="必填，请填写单位名称"
+                            />
+
+                            <van-field
+                              value="{{ companyArr[0].InvoiceTaxpayerNumber ?companyArr[0].InvoiceTaxpayerNumber:'' }}"
+                              name="InvoiceTaxpayerNumber"
+                              clearable
+                              label="纳税人识别号"
+                              placeholder="必填，请填写纳税人识别号"
+                              required
+                              border="{{ false }}"
+                            />
+                            <van-field
+                              value="{{ companyArr[0].RegisterAddress ?companyArr[0].RegisterAddress:'' }}"
+                              name="RegisterAddress"
+                              clearable
+                              label="注册地址"
+                              placeholder="请填写单位注册地址"
+                              border="{{ false }}"
+                            />
+                            <van-field
+                              value="{{ companyArr[0].RegisterTel ?companyArr[0].RegisterTel:'' }}"
+                              name="RegisterTel"
+                              clearable
+                              label="注册电话"
+                              placeholder="请填写单位注册电话"
+                              border="{{ false }}"
+                            />
+                            <van-field
+                              value="{{ companyArr[0].OpenBank ?companyArr[0].OpenBank:'' }}"
+                              name="OpenBank"
+                              clearable
+                              label="开户银行"
+                              placeholder="请填写单位开户银行"
+                              border="{{ false }}"
+                            />
+                            <van-field
+                              value="{{ companyArr[0].BankAccount ?companyArr[0].BankAccount:'' }}"
+                              name="BankAccount"
+                              clearable
+                              label="银行账户"
+                              placeholder="请填写单位银行账户"
+                              border="{{ false }}"
+                            />
+                      </van-cell-group>
+                    </view>
+                     <view class="invoice_info">
+                      <van-cell-group>
+                          <van-field
+                            value="{{ companyArr[0].ReceivePhone ?companyArr[0].ReceivePhone:'' }}"
+                            name="ReceivePhone"
+                            required
+                            clearable
+                            label="收票人手机"
+                            placeholder="请输入收票人手机"
+                            border="{{ false }}"
+                          />
+                          <van-field
+                            value="{{ companyArr[0].ReceiveEmail ?companyArr[0].ReceiveEmail:'' }}"
+                            name="ReceiveEmail"
+                            clearable
+                            label="收票人邮箱"
+                            placeholder="请输入收票人邮箱"
+                            required
+                            border="{{ false }}"
+                          />
+                      </van-cell-group>
+                      
+                       <input name="Id" value="{{companyArr[0].Id?companyArr[0].Id:'0'}}" hidden/>
+                       <input name="InvoiceType" value="{{companyArr[0].InvoiceType?companyArr[0].InvoiceType: 3}}" hidden/>
+                       <input name="ReceiveName" value="{{companyArr[0].ReceiveName?companyArr[0].ReceiveName:''}}" hidden/>
+                       <input name="ReceiveRegionName" value="{{companyArr[0].ReceiveRegionName?companyArr[0].ReceiveRegionName:''}}" hidden/>
+                       <input name="ReceiveAddress" value="{{companyArr[0].ReceiveAddress?companyArr[0].ReceiveAddress:''}}" hidden/>
+                      </view> 
+                      <view class="confirm_btn">
+                          <button form-type="submit"  class="custom-class submit">确定</button>
+                          <button form-type="reset"  class="custom-class reset">取消</button>
+                        </view>
+                      </form>     
+                </view>
+
+              </van-tab>
+              <van-tab title="增值税发票" name="增值税发票">
+               <form bindsubmit="selectInvoiceType2" bindreset="formReset">
+                  <view class="invoice_tip">
+                    发票将在订单完成之后0-1个工作日后寄出。
+                  </view>
+
+                  <view class="vat_invoice_title">增票资质<text class="">(以下各项均为必填项)</text></view>
+                    
+                  <view class="vat_invoice_info">
+                
+                       <van-cell-group>
+                            <van-field
+                              value="{{vatArr[0].InvoiceTitle?vatArr[0].InvoiceTitle:''}}"
+                              name="InvoiceTitle"
+                              required
+                              clearable
+                              label="单位名称"
+                              placeholder="必填，请填写单位名称"
+                            />
+
+                            <van-field
+                              value="{{vatArr[0].InvoiceTaxpayerNumber?vatArr[0].InvoiceTaxpayerNumber:''}}"
+                              name="InvoiceTaxpayerNumber"
+                              clearable
+                              label="纳税人识别号"
+                              placeholder="必填，请填写纳税人识别号"
+                              required
+                              border="{{ false }}"
+                            />
+                            <van-field
+                              value="{{vatArr[0].RegisterAddress?vatArr[0].RegisterAddress:''}}"
+                              name="RegisterAddress"
+                              clearable
+                              label="注册地址"
+                              placeholder="请填写单位注册地址"
+                              border="{{ false }}"
+                            />
+                            <van-field
+                              value="{{vatArr[0].RegisterTel?vatArr[0].RegisterTel:''}}"
+                              name="RegisterTel"
+                              clearable
+                              label="注册电话"
+                              placeholder="请填写单位注册电话"
+                              border="{{ false }}"
+                            />
+                            <van-field
+                              value="{{vatArr[0].OpenBank?vatArr[0].OpenBank:''}}"
+                              name="OpenBank"
+                              clearable
+                              label="开户银行"
+                              placeholder="请填写单位开户银行"
+                              border="{{ false }}"
+                            />
+                            <van-field
+                              value="{{vatArr[0].BankAccount?vatArr[0].BankAccount:''}}"
+                              name="BankAccount"
+                              clearable
+                              label="银行账户"
+                              placeholder="请填写单位银行账户"
+                              border="{{ false }}"
+                            />
+                      </van-cell-group>
+                      <view class="vat_invoice_title">收票人信息<text class="">(以下各项均为必填项)</text></view>
+                      <van-cell-group>
+                        <van-field
+                          value="{{vatArr[0].ReceiveName?vatArr[0].ReceiveName:''}}"
+                          name="ReceiveName"
+                          required
+                          clearable
+                          label="收票人姓名"
+                          placeholder="请填写收票人姓名"
+                        />
+
+                        <van-field
+                          value="{{vatArr[0].ReceivePhone?vatArr[0].ReceivePhone:''}}"
+                          name="ReceivePhone"
+                          clearable
+                          label="收票人手机"
+                          placeholder="请填写收票人手机号码"
+                          required
+                          border="{{ false }}"
+                        />
+                        <van-field
+                          value="{{vatArr[0].ReceiveRegionName?vatArr[0].ReceiveRegionName:''}}"
+                          name="ReceiveRegionName"
+                          clearable
+                          label="收票人地区"
+                          placeholder="请输入"
+                          required
+                          border="{{ false }}"
+                        />
+                        <van-field
+                          value="{{vatArr[0].ReceiveAddress?vatArr[0].ReceiveAddress:''}}"
+                          name="ReceiveAddress"
+                          clearable
+                          label="详细地址"
+                          placeholder="请填写详细地址"
+                          required
+                          border="{{ false }}"
+                        />
+                      </van-cell-group>
+                        <input name="Id" value="{{vatArr[0].Id?vatArr[0].Id:'0'}}" hidden/>
+                        <input name="InvoiceType" value="{{vatArr[0].InvoiceType?vatArr[0].InvoiceType: 4}}" hidden/>
+                        <input name="ReceiveEmail" value="{{vatArr[0].ReceiveEmail?vatArr[0].ReceiveEmail:''}}" hidden/>
+                    </view>
+                    <view class="confirm_btn">
+                      <button form-type="submit"  class="custom-class submit">确定</button>
+                      <button form-type="reset"  class="custom-class reset">取消</button>
+                    </view>
+                  </form> 
+              </van-tab>
+            </van-tabs>
+   
+        </view>
+      
+      </van-popup>
+
+
+      <!---新增代码 是否填写邀请码2020/6/1 -->
+      <van-popup
+        show="{{ !IsExistReferral }}"
+        position="bottom"
+        custom-style="height: 20%;"
+        bind:close="IsExistReferraLonClose"
+      >
+
+        <view class="isExistReferral">
+            <view class="title">
+              邀请码
+            </view>
+            <view class="input">
+              <input value="" name="autocode" bindinput="autocode" placeholder="请输入推荐人邀请码"/>
+            </view>
+            <view class="button_isExistReferral" bindtap="button_isExistReferral">
+              <button>确定</button>
+            </view>  
+        </view>
+          
+      </van-popup>
+
+      <view class='df ais jct-between attrList'>
+        <view>备注</view>
+        <view class='df ais'>
+          <input placeholder='选填，请先和商家协商' value="{{remark}}" bindinput="handleVal"></input>
+        </view>
+      </view>
+      <view class='allnumberBox'>
+        共 {{goodsNum}} 件 合计:
+        <text>￥ {{goodsTotalPrice}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 默认tab -->
+  <view class='allBtnBox df ais' wx:if='{{isDefault}}'>
+    共 {{goodsNum}} 件 合计: ￥{{goodsTotalPrice}}
+    <button class='surebtn df ais' bindtap='payModal' data-type="sub" wx:if="{{!confirmIng}}">确定订单</button>
+    <button class='surebtn df ais' data-type="sub" wx:else>确定订单</button>
+    
+  </view>
+
+  <!-- 自定义tab -->
+  <view class="c-tab da" wx:else>
+    <text class="ct-num">共 {{goodsNum}} 件</text>
+    <text class="ct-account flex">合计 : ￥{{goodsTotalPrice}}</text>
+    <button class="ct-btn" bindtap='payModal' data-type="sub"  wx:if="{{!confirmIng}}">确定订单</button>
+     <button class="ct-btn"  data-type="sub" wx:else>确定订单</button>
+  </view>
+</view>
+
+<!-- 优惠券组件 -->
+<Coupon  coupons='{{couponList}}' id='coupon' bindselectedValue="getCouponData"/>
+
+<!-- 支付modal -->
+<view class='payModal' hidden='{{hiddenPay}}' bindtap='payModal' data-type="sub">
+  <view class='payModal-ul' catchtap='catchStop'>
+    <view class='payModal-li df ais jct-between' bindtap='selectPay'>
+      <view class='df ais payModal-liL'>
+        <image src='{{imgurl +"pic_wechat@2x.png"}}' mode='widthFix'></image>
+        <text>微信支付</text>
+      </view>
+      <view class='df ais payModal-liR'>
+        <text hidden='{{payType}}'></text>
+        <image src='{{imgurl +"icon_xuanzhong@2x (1).png"}}' mode='widthFix' class='payModal-liR' hidden='{{!payType}}'></image>
+      </view>
+    </view>
+  </view>
+</view>

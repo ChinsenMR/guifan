@@ -38,7 +38,7 @@ Page({
     NewInvoiceId: '', // 要传给后台的发票NewInvoiceId
     ShipToDate: '',
     invoiceType: '请选择发票类型',
-    IsApply: false,
+    IsApply:false,
     TaxRate: 0.1,
     personArr: {},
     companyArr: {},
@@ -81,8 +81,7 @@ Page({
 
     beforeComputedPrice: null, // 未经计算金额的总价
     isAllowBuy: true, // 购买限制条件，为true允许购买
-    confirmIng: false,
-    finshedOrder: false,
+    confirmIng: false
   },
 
   onLoad: function (opt) {
@@ -174,15 +173,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.data.finshedOrder) {
-      wx.showModal({
-        content: '订单已支付',
-        showCancel: false,
-        complete: () => {
-          wx.navigateBack()
-        }
-      })
-    }
     this.setData({
       goodsNum: 0
     })
@@ -201,7 +191,7 @@ Page({
   //打开地址页面
   goaddress: function () {
     wx.navigateTo({
-      url: '../receivingAddress/receivingAddress?fromType=confirmOrder',
+      url: '../receivingAddress/receivingAddress',
     })
   },
 
@@ -272,7 +262,7 @@ Page({
       buyAmount: buyAmount || '',
       fightGroupActivityId: groupId,
       FightGroupId: tuxedo == 'tuxedo' ? FightGroupId : '',
-      IsApply: ApplyId > 0
+      IsApply:ApplyId > 0 
     }).then(res => {
 
       wx.hideLoading();
@@ -282,7 +272,7 @@ Page({
         return wx.navigateBack({
           success: () => {
             wx.showModal({
-              content: res.data.Message == null ? '错误订单' : res.data.Message
+              content: res.data.Message==null?'错误订单':res.data.Message
             });
           }
         });
@@ -361,8 +351,8 @@ Page({
         console.log(needUpLevel, IsUpdateGradeCondition, this)
 
 
-        // // needUpLevel 为 true 是否满足去申请代理
-        if (needUpLevel && IsExistReferral) {
+        // needUpLevel 为 true 是否满足去申请代理
+        if (needUpLevel && IsExistReferral ) {
           wx.showModal({
             content: '需要升级代理才能购买本产品',
             complete: res => {
@@ -407,8 +397,8 @@ Page({
 
 
   //确认订单
-  submintOrder(type) {
-
+  submintOrder (type) {
+    
 
     if (type && type === 'sub') {
       this.setData({
@@ -442,9 +432,7 @@ Page({
       checked_fp,
       goodsTotalPrice,
       ApplyId,
-      confirmIng,
-      finshedOrder,
-      needUpLevel
+      confirmIng
     } = this.data;
 
 
@@ -453,12 +441,7 @@ Page({
       mask: true
     })
 
-    if(!ApplyId && needUpLevel){
-      return wx.showToast({
-        icon: "none",
-        title: '需要升级代理才能购买本产品',
-      })
-    }
+
 
     if (checked_fp && invoiceType == '请选择发票类型') {
       return wx.showToast({
@@ -490,9 +473,9 @@ Page({
       invoiceId: this.data.invoiceId, //是否需要开发票需要传的id值
       needInvoice: this.data.needInvoice, //是否需发票
       ShipToDate: this.data.ShipToDate, //配送时间
-      IsApply: this.data.IsApply,
+      IsApply:this.data.IsApply,
       ApplyId // 代理ID
-
+  
     }
 
     submitOrderInfo(formData).then(res => {
@@ -539,7 +522,6 @@ Page({
             Status
           } = res.data;
           if (Status === 'Success') {
-            finshedOrder = true;
             if (IS_GROUP_ORDER) {
               wx.navigateTo({
                 url: `/pages/groupDetail/groupDetail?FightGroupId=${FightGroupId}&prDid=${prDid}`,
@@ -618,7 +600,7 @@ Page({
         const {
           BalanceAmount
         } = res.data;
-        if (nnel) {
+        if (  nnel) {
           /* 要使用余额进行抵扣 */
           console.log(cannel, this.data.goodsTotalPrice, BalanceAmount)
           let goodsTotalPrice = Math.floor((this.data.goodsTotalPrice - BalanceAmount) * 100) / 100
@@ -649,7 +631,7 @@ Page({
   // 获取支付参数
 
   //打开   关闭modal
-  payModal(e) {
+  payModal (e) {
     const {
       currentTarget: {
         dataset: {
@@ -657,7 +639,7 @@ Page({
         }
       }
     } = e;
-
+ 
     this.selectPay(type);
     // this.setData({
     //   hiddenPay: !this.data.hiddenPay

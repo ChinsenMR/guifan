@@ -1,6 +1,5 @@
 import {
-  subBindTemReferral,
-  bindBaseAgent
+  subBindTemReferral
 } from '../../utils/requestApi.js'
 
 const app = getApp();
@@ -16,14 +15,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (opt) {
-    if (opt.scene) {
-      const scene = decodeURIComponent(opt.scene);
-      opt.agentId = app.utils.getQueryVariable(scene, 'agentId')
-      opt.prDid = app.utils.getQueryVariable(scene, 'prDid');
-      /* 绑定代理全部放这里面 */
-      this.bindBaseAgent(opt)
-    }
+  onLoad: function (options) {
+    console.log("home页面跳转数据", options);
+
+    /* 绑定代理处理 */
+    this.bindBaseAgent(options)
+
+
 
 
     wx.getSystemInfo({
@@ -37,8 +35,8 @@ Page({
       title: '加载中...'
     })
 
-    if (opt.pageType) wx.reLaunch({
-      url: `/pages/goodsDetail/goodsDetail?prDid=${opt.prDid}&pagetype=${opt.pageType}`
+    if (options.pageType) wx.reLaunch({
+      url: `/pages/goodsDetail/goodsDetail?prDid=${options.prDid}&pagetype=${options.pageType}`
     })
     else {
       let timer = setInterval(() => {
@@ -55,9 +53,9 @@ Page({
       }, 10)
     }
 
-    if (opt.rid) app.data.referralUserId = opt.rid
+    if (options.rid) app.data.referralUserId = options.rid
     else {
-      var scene = decodeURIComponent(opt.scene).split('=')[1]
+      var scene = decodeURIComponent(options.scene).split('=')[1]
       wx.setStorageSync("scene", scene);
       app.data.referralUserId = scene
     }
@@ -81,7 +79,7 @@ Page({
   },
   /* 全局方法，绑定代理 */
   bindBaseAgent(opt) {
-    app.globalData.AGENT_ID = opt.agentId;
+    app.globalData.AGENT_ID = opt.scene || opt.agentId;
 
     console.log(app.globalData.AGENT_ID, '<><><><><><><')
     /* 如果有代理ID那么就绑定 */
@@ -90,7 +88,6 @@ Page({
       bindBaseAgent({
         ReferralUserId: app.globalData.AGENT_ID
       }).then(res => {
-        console.log(res,'绑定代理')
         const {
           Code,
           Msg
